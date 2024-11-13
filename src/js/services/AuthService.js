@@ -1,10 +1,10 @@
-// import repositories from '../repositories/index';
+import repositories from "../repositories";
 
 class AuthService {
   constructor(tokenKey = 'token', userKey = 'user') {
     this.tokenKey = tokenKey;
     this.userKey = userKey;
-    // this.authRepository = repositories.authRepository;
+    this.authRepository = repositories.AuthRepository;
   }
 
   get authToken() {
@@ -29,9 +29,9 @@ class AuthService {
 //     localStorage.removeItem(this.userKey);
 //   }
 
-//   async login(email, password) {
-//     return await this.authRepository.login(email, password);
-//   }
+  async login(email, password) {
+    return await this.authRepository.login(email, password);
+  }
 
 //   async register(name, email, password) {
 //     return await this.authRepository.register(name, email, password);
