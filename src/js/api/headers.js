@@ -1,6 +1,6 @@
 import services from "../services/index";
-import { API_KEY } from "./constants";
-import { CONTENT_TYPE_JSON } from "./constants";
+import { API_KEY } from "./constant";
+import { CONTENT_TYPE_JSON } from "./constant";
 
 export function headers() {
   const headers = new Headers();

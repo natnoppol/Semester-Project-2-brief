@@ -1,10 +1,10 @@
-import repositories from '../repositories/index';
+// import repositories from '../repositories/index';
 
 class AuthService {
   constructor(tokenKey = 'token', userKey = 'user') {
     this.tokenKey = tokenKey;
     this.userKey = userKey;
-    // this.authRepository = repositories.AuthRepository;
+    // this.authRepository = repositories.authRepository;
   }
 
   get authToken() {
