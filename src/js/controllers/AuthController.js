@@ -14,6 +14,18 @@ class AuthController {
       throw new Error('Login failed. Please check your credentials.');
     }
     }
+
+    async register({ name, email, password }) {
+        try {
+          const response = await this.authService.register(name, email, password);
+
+          return { name, email };
+
+        } catch (error) {
+          console.error('Register error:', error);
+          throw new Error('Register Failed. Please check you data input.');
+        }
+      }
 }
 
 export default new AuthController();

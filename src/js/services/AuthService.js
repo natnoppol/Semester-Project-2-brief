@@ -33,9 +33,9 @@ class AuthService {
     return await this.authRepository.login(email, password);
   }
 
-//   async register(name, email, password) {
-//     return await this.authRepository.register(name, email, password);
-//   }
+  async register(name, email, password) {
+    return await this.authRepository.register(name, email, password);
+  }
 
 //   logout() {
 //     this.clearAuthData();

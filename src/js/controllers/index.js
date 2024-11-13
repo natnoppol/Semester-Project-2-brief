@@ -3,7 +3,7 @@ import LoginController from './LoginController';
 // import LogoutController from './LogoutController';
 // import PostController from './PostController';
 // import ProfileController from './ProfileController';
-// import RegisterController from './RegisterController';
+import RegisterController from './RegisterController';
 // import TagsController from './TagsController';
 // import FollowController from './FollowController';
 // import SearchController from './SearchController';
@@ -16,7 +16,7 @@ const controllers = {
 //   LogoutController,
 //   PostController,
 //   ProfileController,
-//   RegisterController,
+  RegisterController,
 //   TagsController,
 //   FollowController,
 //   SearchController,
