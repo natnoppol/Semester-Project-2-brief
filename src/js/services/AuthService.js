@@ -24,22 +24,22 @@ class AuthService {
     localStorage.setItem(this.userKey, JSON.stringify(user));
   }
 
-//   clearAuthData() {
-//     localStorage.removeItem(this.tokenKey);
-//     localStorage.removeItem(this.userKey);
-//   }
-
+  
   async login(email, password) {
     return await this.authRepository.login(email, password);
   }
-
+  
   async register(name, email, password) {
     return await this.authRepository.register(name, email, password);
   }
-
-//   logout() {
-//     this.clearAuthData();
-//   }
+  
+  clearAuthData() {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
+  }
+  logout() {
+    this.clearAuthData();
+  }
 }
 
 export default new AuthService();

@@ -26,6 +26,14 @@ class AuthController {
           throw new Error('Register Failed. Please check you data input.');
         }
       }
+      logout() {
+        try {
+          this.authService.logout();
+          console.log('Logout successful');
+        } catch (error) {
+          console.error('Logout failed:', error);
+        }
+      }
 }
 
 export default new AuthController();

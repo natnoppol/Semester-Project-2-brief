@@ -1,8 +1,14 @@
 import './css/style.css'
 
+import controllers from './js/controllers/index';
+
 import router from './js/router';
 
-const path = window.location.pathname
+
 await router(window.location.pathname);
-console.log(path)
+
+
+const logoutListener = new controllers.LogoutController(
+    controllers.AuthController
+  );
 
