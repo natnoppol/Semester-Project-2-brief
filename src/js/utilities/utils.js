@@ -4,10 +4,10 @@ const utils = {
       window.location.href = path;
     },
   
-    // getUrlParams: (param) => {
-    //   const urlParams = new URLSearchParams(window.location.search);
-    //   return urlParams.get(param);
-    // },
+    getUrlParams: (param) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    },
   
     // date: (dateString) => {
     //   const date = new Date(dateString);

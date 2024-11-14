@@ -1,4 +1,4 @@
-import { API_AUTH_LOGIN, API_AUTH_REGISTER } from '../api/constant';
+import { API_AUTH_LOGIN, API_ACTION_PROFILES } from '../api/constant';
 import { headers } from '../api/headers';
 import models from '../models/index';
 
@@ -35,7 +35,7 @@ class AuthRepository {
   }
 
   async register(name, email, password) {
-    const response = await fetch(`${API_AUTH_REGISTER}`, {
+    const response = await fetch(`${API_ACTION_PROFILES}`, {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({ name, email, password }),

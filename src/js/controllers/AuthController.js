@@ -34,6 +34,42 @@ class AuthController {
           console.error('Logout failed:', error);
         }
       }
+
+  //     // Getter for authToken
+  // get authToken() {
+  //   try {
+  //     return this.authService.authToken; // Access without parentheses
+  //   } catch (error) {
+  //     console.error('Failed to get authToken:', error);
+  //   }
+  // }
+
+  // // Setter for authToken
+  // set authToken(token) {
+  //   try {
+  //     this.authService.authToken = token; // Set without parentheses
+  //   } catch (error) {
+  //     console.error('Failed to set authToken:', error);
+  //   }
+  // }
+
+  // Getter for authUser
+  get authUser() {
+    try {
+      return this.authService.authUser; // Access without parentheses
+    } catch (error) {
+      console.error('Failed to get authUser:', error);
+    }
+  }
+
+  // // Setter for authUser
+  // set authUser(user) {
+  //   try {
+  //     this.authService.authUser = user; // Set without parentheses
+  //   } catch (error) {
+  //     console.error('Failed to set authUser:', error);
+  //   }
+  // }
 }
 
 export default new AuthController();

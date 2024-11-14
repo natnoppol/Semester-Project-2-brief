@@ -13,10 +13,10 @@ export const API_AUTH_REGISTER = `${API_AUTH}/register`;
 
 export const API_AUTH_KEY = `${API_AUTH}/create-api-key`;
 
-export const API_SOCIAL = `${API_BASE}/social`;
+export const API_ACTION = `${API_BASE}/auction`;
 
-export const API_SOCIAL_POSTS = `${API_SOCIAL}/posts`;
+export const API_ACTION_LISTING = `${API_ACTION}/listings`;
 
-export const API_SOCIAL_PROFILES = `${API_SOCIAL}/profiles`;
+export const API_ACTION_PROFILES = `${API_ACTION}/profiles`;
 
 export const CONTENT_TYPE_JSON = 'application/json';
