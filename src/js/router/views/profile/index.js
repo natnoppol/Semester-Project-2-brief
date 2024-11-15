@@ -62,7 +62,7 @@ async function fetchProfile(user) {
     return data;
 }
 
-function renderProfileData(profile) {
+export function renderProfileData(profile) {
   const profileContainer = document.querySelector('.profile-layout');
   renderProfile(profile, profileContainer);
 }
@@ -72,7 +72,7 @@ function renderProfile(profile, target) {
     setProfileBanner(target, profile.banner?.url);
   
     const profileElement = `
-      <header class="w-full mt-2 z-10 my-8">
+      <header id="headerWithEditProfile" class="w-full mt-2 z-10 my-8">
         <div class="flex justify-center relative">
           <span>
             <img class="h-32 w-32 rounded-full block" src="${

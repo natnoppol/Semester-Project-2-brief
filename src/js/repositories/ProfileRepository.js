@@ -59,41 +59,40 @@ class ProfileRepository {
     }
   }
 
-//   async update(name, data) {
-//     const payload = JSON.stringify(data);
-//     const endpoint = `${API_ACTION_PROFILES}/${name}`;
-//     const response = await fetch(endpoint, {
-//       method: 'PUT',
-//       headers: headers(),
-//       body: payload,
-//     });
+  async update(name, data) {
+    const payload = JSON.stringify(data);
+    const endpoint = `${API_ACTION_PROFILES}/${name}`;
+    const response = await fetch(endpoint, {
+      method: 'PUT',
+      headers: headers(),
+      body: payload,
+    });
 
-//     if (!response.ok) throw new Error('Update profile failed');
+    if (!response.ok) throw new Error('Update profile failed');
 
-//     try {
-//       const result = await response.json();
-//       const { data, meta } = result;
-//       const profileInstance = new models.Profile(
-//         data._count,
-//         data.avatar,
-//         data.banner,
-//         data.bio,
-//         data.email,
-//         data.followers,
-//         data.following,
-//         data.name,
-//         data.posts
-//       );
+    try {
+      const result = await response.json();
+      const { data, meta } = result;
+      const profileInstance = new models.Profile(
+        data._count,
+        data.avatar,
+        data.banner,
+        data.bio,
+        data.email,
+        data.listings,
+        data.wins,
+        data.name,
+      );
 
-//       return {
-//         success: true,
-//         data: profileInstance,
-//         meta,
-//       };
-//     } catch (error) {
-//       return { success: false, message: error.message };
-//     }
-//   }
+      return {
+        success: true,
+        data: profileInstance,
+        meta,
+      };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
 
 //   async posts(name, page = 1) {
 //     const endpoint = `${API_ACTION_PROFILES}/${name}/posts?limit=12&page=${page}&_author=true&_posts=true&_following=true&_followers=true&_comments=true`;
