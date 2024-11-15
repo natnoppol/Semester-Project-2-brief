@@ -1,3 +1,7 @@
+@import url(components/form.css);
+@import url(components/input.css);
+
+
 /* src/style.css */
 @tailwind base;
 @tailwind components;

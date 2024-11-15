@@ -1,0 +1,4 @@
+form[role='search'] {
+    display: flex;
+    flex-direction: row;
+}
