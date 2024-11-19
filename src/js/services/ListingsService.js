@@ -11,13 +11,13 @@ class ListingsService {
     return await this.ListingsService.create(data)
   }
 
+  async listing(id) {
+    return await this.ListingsService.listing(id);
+  }
   async listings(page = 1) {
     return await this.ListingsService.listings(page);
   }
 
-//   async post(id) {
-//     return await this.ListingsService.post(id);
-//   }
 
 
 //   async update(id, data) {

@@ -36,11 +36,11 @@ structuredTags(tags) {
     return tags ? tags.split(',').map((tag) => tag.trim()) : [];
 }
 structuredMedia(data) {
-  const mediaObject = {
-    url: data.media,
-    alt: data.alt || '',
-  };
-    return Array.isArray(data.media) ? data.media : [mediaObject];
+  const mediaArray = data.media ? data.media.split(',').map((url) => url.trim()) : [];
+  return mediaArray.map((url) => ({
+    url: url,
+    alt: data.alt || '',  
+  }));
 }
 
     onCancelListing(id = null) {
@@ -48,32 +48,32 @@ structuredMedia(data) {
       if (id) utils.redirectTo(`/listing/?id=${id}`);
     }
 
+    async listing(id) {
+          try {
+        const { data, meta } = await this.ListingsService.listing(id);
+        
+        return { data, meta };
+      } catch (error) {
+        console.error('Fetch post error:', error);
+        throw new Error('Fetch single post failed.');
+      }
+    }
 
+    
+    async Listings(page = 1) {
+      try {
+        const { success, data, meta } = await this.ListingsService.listings(page);
+        return { success, data, meta };
+      } catch (error) {
+        console.error('Fetch Listings error:', error);
+        throw new Error('Fetch Listings failed.');
+      }
+    }
+    
     
     // async onDeletePost(id) {
     //   await this.delete(id);
     // }
-  async Listingss(page = 1) {
-    try {
-      const { success, data, meta } = await this.ListingsService.listings(page);
-      return { success, data, meta };
-    } catch (error) {
-      console.error('Fetch Listings error:', error);
-      throw new Error('Fetch Listings failed.');
-    }
-  }
-  
-
-//   async post(id) {
-    //     try {
-//       const { data, meta } = await this.postService.post(id);
-      
-//       return { data, meta };
-//     } catch (error) {
-//       console.error('Fetch post error:', error);
-//       throw new Error('Fetch single post failed.');
-//     }
-//   }
 
 
 //   async update(id, data) {

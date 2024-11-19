@@ -25,67 +25,79 @@ const utils = {
       ) // Add '#' before each tag
       .join(' '); // Join tags with a space
   },
+
+    humberger: () => {
+      const menuIcon = document.getElementById("menuIcon");
+      const closeIcon = document.getElementById("closeIcon");
+      const mobileMenu = document.getElementById("mobile-menu");
     
-    // date: (dateString) => {
-      //   const date = new Date(dateString);
-    //   const today = new Date();
+      menuButton.addEventListener("click", () => {
+        menuIcon.classList.toggle("hidden"); // Toggle 'hamburger' icon
+        closeIcon.classList.toggle("hidden"); // Toggle 'close' icon
+        mobileMenu.classList.toggle("hidden");// Toggle mobile menu visibility
+      });
+    },
+    
+    date: (dateString) => {
+        const date = new Date(dateString);
+      const today = new Date();
   
-    //   // Custom mapping for 3-letter month abbreviations
-    //   const monthNames = [
-    //     'Jan',
-    //     'Feb',
-    //     'Mar',
-    //     'Apr',
-    //     'May',
-    //     'Jun',
-    //     'Jul',
-    //     'Aug',
-    //     'Sep',
-    //     'Oct',
-    //     'Nov',
-    //     'Dec',
-    //   ];
+      // Custom mapping for 3-letter month abbreviations
+      const monthNames = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
   
-    //   const day = date.getDate();
-    //   const month = monthNames[date.getMonth()]; // Get the 3-letter month abbreviation
+      const day = date.getDate();
+      const month = monthNames[date.getMonth()]; // Get the 3-letter month abbreviation
   
-    //   let formattedDate = `${month} ${day}`;
+      let formattedDate = `${month} ${day}`;
   
-    //   // Add the year only if it's not the current year
-    //   if (date.getFullYear() !== today.getFullYear()) {
-    //     formattedDate += ` ${date.getFullYear()}`;
-    //   }
+      // Add the year only if it's not the current year
+      if (date.getFullYear() !== today.getFullYear()) {
+        formattedDate += ` ${date.getFullYear()}`;
+      }
   
-    //   return formattedDate;
-    // },
+      return formattedDate;
+    },
   
-    // time: (date) => {
-    //   const now = new Date();
-    //   const createdTime = new Date(date);
-    //   const secondsAgo = Math.floor((now - createdTime) / 1000);
+    time: (date) => {
+      const now = new Date();
+      const createdTime = new Date(date);
+      const secondsAgo = Math.floor((now - createdTime) / 1000);
   
-    //   let interval = Math.floor(secondsAgo / 31536000); // years
-    //   if (interval > 1) return `${interval} years ago`;
-    //   if (interval === 1) return '1 year ago';
+      let interval = Math.floor(secondsAgo / 31536000); // years
+      if (interval > 1) return `${interval} years ago`;
+      if (interval === 1) return '1 year ago';
   
-    //   interval = Math.floor(secondsAgo / 2592000); // months
-    //   if (interval > 1) return `${interval} months ago`;
-    //   if (interval === 1) return '1 month ago';
+      interval = Math.floor(secondsAgo / 2592000); // months
+      if (interval > 1) return `${interval} months ago`;
+      if (interval === 1) return '1 month ago';
   
-    //   interval = Math.floor(secondsAgo / 86400); // days
-    //   if (interval > 1) return `${interval} days ago`;
-    //   if (interval === 1) return '1 day ago';
+      interval = Math.floor(secondsAgo / 86400); // days
+      if (interval > 1) return `${interval} days ago`;
+      if (interval === 1) return '1 day ago';
   
-    //   interval = Math.floor(secondsAgo / 3600); // hours
-    //   if (interval > 1) return `${interval} hours ago`;
-    //   if (interval === 1) return '1 hour ago';
+      interval = Math.floor(secondsAgo / 3600); // hours
+      if (interval > 1) return `${interval} hours ago`;
+      if (interval === 1) return '1 hour ago';
   
-    //   interval = Math.floor(secondsAgo / 60); // minutes
-    //   if (interval > 1) return `${interval} minutes ago`;
-    //   if (interval === 1) return '1 minute ago';
+      interval = Math.floor(secondsAgo / 60); // minutes
+      if (interval > 1) return `${interval} minutes ago`;
+      if (interval === 1) return '1 minute ago';
   
-    //   return secondsAgo > 1 ? `${secondsAgo} seconds ago` : 'now';
-    // },
+      return secondsAgo > 1 ? `${secondsAgo} seconds ago` : 'now';
+    },
   
 };
   

@@ -4,16 +4,7 @@ import controllers from '../../../controllers/index';
 // import InfiniteScroll from '../../../utilities/infiniteScroll';
 
 async function init() {
-  const menuButton = document.getElementById("menuButton");
-    const menuIcon = document.getElementById("menuIcon");
-    const closeIcon = document.getElementById("closeIcon");
-    const mobileMenu = document.getElementById("mobile-menu");
-  
-    menuButton.addEventListener("click", () => {
-      menuIcon.classList.toggle("hidden"); // Toggle 'hamburger' icon
-      closeIcon.classList.toggle("hidden"); // Toggle 'close' icon
-      mobileMenu.classList.toggle("hidden");// Toggle mobile menu visibility
-    });
+  utils.humberger()
 
 
   const author = getAuthor();

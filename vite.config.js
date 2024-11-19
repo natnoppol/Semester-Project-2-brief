@@ -4,6 +4,9 @@ import { defineConfig } from "vite";
 import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
+  optimizeDeps: {
+    include: ['swiper'],
+  },
   plugins: [
     legacy({
       targets: ['defaults', 'not IE 11'],

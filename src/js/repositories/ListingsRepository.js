@@ -36,6 +36,36 @@ class ListingsRepository {
         return { success: false, message: error.message };
       }
     }
+    async listing(id) {
+      const endpoint = `${API_ACTION_LISTING}/${id}?_seller=true&_bids=true`;
+      const response = await fetch(endpoint, {
+        method: 'GET',
+        headers: headers(),
+      });
+    
+      if (!response.ok) throw new Error('Fetching single lists failed');
+    
+      try {
+        const result = await response.json();
+        const { data, meta } = result;
+        const listInstance = new models.Listing(
+          data._count,
+          data.description,
+          data.created,
+          data.id,
+          data.media,
+          data.tags,
+          data.title,
+          data.updated,
+          data.seller,
+          data.bids,
+          data.endsAt
+        );
+        return { success: true, data: listInstance, meta };
+      } catch (error) {
+        return { success: false, message: error.message };
+      }
+    }
 
     async listings(page = 1) {
       const endpoint = `${API_ACTION_LISTING}?limit=12&page=${page}&_seller=true&_bids=true`;
@@ -48,7 +78,7 @@ class ListingsRepository {
   
       try {
         const { data, meta } = await response.json();
-  
+        
         return {
           success: true,
           data: new models.Listings(data),
@@ -60,35 +90,6 @@ class ListingsRepository {
 }
 
 
-    // async list(id) {
-    //   const endpoint = `${API_ACTION_LISTING}/${id}?_seller=true&_bids=true`;
-    //   const response = await fetch(endpoint, {
-    //     method: 'GET',
-    //     headers: headers(),
-    //   });
-  
-    //   if (!response.ok) throw new Error('Fetching single lists failed');
-  
-    //   try {
-    //     const result = await response.json();
-    //     const { data, meta } = result;
-    //     const listInstance = new models.list(
-    //       data._count,
-    //       data.author,
-    //       data.body,
-    //       data.created,
-    //       data.comments,
-    //       data.id,
-    //       data.media,
-    //       data.tags,
-    //       data.title,
-    //       data.updated
-    //     );
-    //     return { success: true, data: listInstance, meta };
-    //   } catch (error) {
-    //     return { success: false, message: error.message };
-    //   }
-    // }
   
   
     // async update(id, data) {
