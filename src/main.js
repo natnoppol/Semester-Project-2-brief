@@ -51,17 +51,13 @@ function onAvatarClick() {
   );
   if (userMenuButton && userMenu) {
     userMenuButton.addEventListener('click', (event) => {
-
       event.stopPropagation();
-
-      console.log("test")
       userMenu.classList.toggle('hidden');
     });
   }
-
+  // event click outside of the dropdown menu
   document.addEventListener('click', (event) => {
     if (!userMenu.contains(event.target) && event.target !== userMenuButton) {
-      console.log("test2")
       userMenu.classList.add('hidden');
     }
   });

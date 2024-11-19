@@ -13,6 +13,7 @@ export class Profiles {
           profile.listings,
           profile.wins,
           profile.name,
+          profile.credits,
          
         )
     );

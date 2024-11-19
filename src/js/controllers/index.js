@@ -3,8 +3,8 @@ import LoginController from './LoginController';
 import LogoutController from './LogoutController';
 import ProfileController from './ProfileController';
 import RegisterController from './RegisterController';
-// import PostController from './PostController';
-// import TagsController from './TagsController';
+import ListingsController from './ListingsController';
+import TagsController from './TagsController';
 // import FollowController from './FollowController';
 // import SearchController from './SearchController';
 // import CommentController from './CommentController';
@@ -16,8 +16,8 @@ const controllers = {
   LogoutController,
   ProfileController,
   RegisterController,
-//   PostController,
-//   TagsController,
+  ListingsController,
+  TagsController,
 //   FollowController,
 //   SearchController,
 //   CommentController

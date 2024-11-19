@@ -47,6 +47,7 @@ class ProfileRepository {
         data.listings,
         data.wins,
         data.name,
+        data.credits
       );
 
       return {

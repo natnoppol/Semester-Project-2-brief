@@ -8,6 +8,7 @@ export class Profile {
       listings = [],
       wins = [],
       name = '',
+      credits = '',
     ) {
       this._count = _count;
       this.avatar = avatar;
@@ -17,6 +18,7 @@ export class Profile {
       this.listings = listings;
       this.wins = wins;
       this.name = name;
+      this.credits = credits;
     }
   }
     

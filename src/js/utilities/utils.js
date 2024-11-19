@@ -1,3 +1,4 @@
+
 const utils = {
     redirectTo: (path) => {
       if (typeof path !== 'string') throw new Error('path must be a string');
@@ -9,8 +10,24 @@ const utils = {
       return urlParams.get(param);
     },
   
+
+    formatTags: (tags) => {
+    if (typeof tags === 'string') {
+      tags = [tags]; // Wrap the string in an array
+    }
+    if (!tags || tags.length === 0) return '';
+    return tags
+      .map(
+        (tag) =>
+          `<a href="/tags/?tag=${encodeURIComponent(
+            tag
+          )}" class="tag bg-gray-100 rounded-2xl text-sm px-1 py-2 hover:bg-gray-200">#${tag}</a>`
+      ) // Add '#' before each tag
+      .join(' '); // Join tags with a space
+  },
+    
     // date: (dateString) => {
-    //   const date = new Date(dateString);
+      //   const date = new Date(dateString);
     //   const today = new Date();
   
     //   // Custom mapping for 3-letter month abbreviations
@@ -70,20 +87,6 @@ const utils = {
     //   return secondsAgo > 1 ? `${secondsAgo} seconds ago` : 'now';
     // },
   
-//     formatTags: (tags) => {
-//     if (typeof tags === 'string') {
-//       tags = [tags]; // Wrap the string in an array
-//     }
-//     if (!tags || tags.length === 0) return '';
-//     return tags
-//       .map(
-//         (tag) =>
-//           `<a href="/tags/?tag=${encodeURIComponent(
-//             tag
-//           )}" class="tag bg-gray-100 rounded-2xl text-sm px-1 py-2 hover:bg-gray-200">#${tag}</a>`
-//       ) // Add '#' before each tag
-//       .join(' '); // Join tags with a space
-//   },
 };
   
   export default utils;

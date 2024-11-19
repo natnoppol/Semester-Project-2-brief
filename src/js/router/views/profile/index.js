@@ -106,6 +106,9 @@ function renderProfile(profile, target) {
           <p class="mb-4 max-w-xl flex justify-center mx-auto space-y-8 text-white">${
             profile.bio
           }</p>
+          <p class="mb-4 max-w-xl flex justify-center mx-auto space-y-8 text-white">Credits: ${
+            profile.credits
+          }</p>
         </div>
       </header>
     `;
@@ -122,7 +125,6 @@ function renderOverlay(target) {
 function getAuthor() {
     if (isAuthUser()) {
       const { name } = controllers.AuthController.authUser;
-      console.log("Profile name:",name)
       return name;
     }
     return utils.getUrlParams('author');

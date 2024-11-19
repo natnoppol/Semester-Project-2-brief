@@ -1,16 +1,16 @@
 import AuthService from './AuthService';
 import ProfileService from './ProfileService';
-// import PostService from './PostService';
-// import TagService from './TagService';
+import ListingsService from './ListingsService'
+import TagService from './TagService';
 // import FollowService from './FollowService';
 // import SearchService from './SearchService';
 // import CommentService from './CommentService';
 
 const services = {
   AuthService,
-  // PostService,
   ProfileService,
-  // TagService,
+  ListingsService,
+  TagService,
   // FollowService,
   // SearchService,
   // CommentService

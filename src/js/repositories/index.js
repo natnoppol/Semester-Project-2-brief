@@ -1,16 +1,16 @@
 import AuthRepository from './AuthRepository';
-// import PostRepository from './PostRepository';
+import ListingsRepository from './ListingsRepository'
 import ProfileRepository from './ProfileRepository';
-// import TagRepository from './TagRepository';
+import TagRepository from './TagRepository';
 // import FollowRepository from './FollowRepository';
 // import SearchRepository from './SearchRepository';
 // import CommentRepository from './CommentRepository';
 
 const repositories = {
   AuthRepository,
-//   PostRepository,
   ProfileRepository,
-//   TagRepository,
+  ListingsRepository,
+  TagRepository,
 //   FollowRepository,
 //   SearchRepository,
 //   CommentRepository
