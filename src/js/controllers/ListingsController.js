@@ -1,3 +1,4 @@
+import controllers from '.';
 import services from '../services/index';
 import utils from '../utilities/utils';
 
@@ -69,6 +70,38 @@ structuredMedia(data) {
         throw new Error('Fetch Listings failed.');
       }
     }
+    
+    async onBid(event, id) {
+      event.preventDefault(); // Prevent form submission from reloading the page
+    
+      const form = event.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries()); // Convert form data to an object
+    
+      const { bidAmount } = data;
+    
+      if (!bidAmount || bidAmount <= 0) {
+        console.error("Bid amount must be a positive number.");
+        return;
+      }
+    
+      
+    
+      try {
+        const { success, data, meta } = await this.ListingsService.bid(id, bidAmount);
+        
+        if (success) {
+          console.log("Bid placed successfully:", data);
+          // Optionally update UI with new bid information
+        } else {
+          console.error("Failed to place bid:", meta);
+        }
+      } catch (error) {
+        console.error("Error while placing bid:", error);
+      }
+    }
+    
+
     
     
     // async onDeletePost(id) {

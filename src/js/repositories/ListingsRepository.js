@@ -36,6 +36,7 @@ class ListingsRepository {
         return { success: false, message: error.message };
       }
     }
+    //single listing after create
     async listing(id) {
       const endpoint = `${API_ACTION_LISTING}/${id}?_seller=true&_bids=true`;
       const response = await fetch(endpoint, {
@@ -78,10 +79,33 @@ class ListingsRepository {
   
       try {
         const { data, meta } = await response.json();
-        
         return {
           success: true,
           data: new models.Listings(data),
+          meta,
+        };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+}
+    async bid(id, bidAmount) {
+      const payload = JSON.stringify({ amount: parseFloat(bidAmount) });
+      const endpoint = `${API_ACTION_LISTING}/${id}/bids`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: headers(),
+        body: payload,
+      });
+  
+      if (!response.ok) throw new Error('Fetching bid failed');
+  
+      try {
+        const { data, meta } = await response.json();
+        console.log("data of bids", data)
+
+        return {
+          success: true,
+          data: data,
           meta,
         };
     } catch (error) {

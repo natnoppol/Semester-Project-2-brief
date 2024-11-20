@@ -17,6 +17,9 @@ class ListingsService {
   async listings(page = 1) {
     return await this.ListingsService.listings(page);
   }
+  async bid(id, bidAmount){
+    return await this.ListingsService.bid(id, bidAmount)
+  }
 
 
 

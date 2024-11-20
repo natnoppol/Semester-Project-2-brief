@@ -17,6 +17,7 @@ async function init() {
 
     // attachEditEvent(id);
     // attachDeleteEvent(id);
+      attachBidEvent(id)
     
   } catch (error) {
     console.error('Error fetching Listings:', error);
@@ -25,7 +26,6 @@ async function init() {
 }
 async function fetchListings(id) {
   const { data } = await controllers.ListingsController.listing(id);
-  console.log("data of listings",data)
   return data;
 }
 
@@ -57,11 +57,9 @@ swiperWrapper.classList.add('swiper-wrapper');
 
   const mediaSlides = listings.media?.map(mediaItem => {
     return `
-     <div class="swiper-slide">
-        <img class="article__cover__image w-full h-auto object-cover md:rounded-lg" 
+     <div class="swiper-slide h-5 dark:bg-gray-800 items-center rounded-lg">
+        <img class="m-auto" 
           src="${mediaItem.url ? mediaItem.url : ''}" 
-          style="aspect-ratio: auto 1000/420;" 
-          width="1000" height="420" 
           alt="${mediaItem.alt ? mediaItem.alt : ''}" />
     </div>
     `;
@@ -133,6 +131,27 @@ swiperWrapper.classList.add('swiper-wrapper');
                   : ''
                   }
               </div>
+              <div class="bidding-section">
+                <form class="bid-form" data-listing-id="LISTING_ID" id="bid" name="bid">
+                  <label for="bidAmount" class="leading-relaxed text-base text-white dark:text-gray-300">Place Your Bid</label>
+                  <input
+                    type="number"
+                    id="bidAmount"
+                    name="bidAmount"
+                    placeholder="Enter your bid amount"
+                    class="w-full mt-1 border rounded px-3 py-2"
+                    min="1"
+                    required
+                  />
+                  <button
+    
+                    type="submit"
+                    class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                  >
+                    Bid
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div> 
@@ -146,7 +165,25 @@ swiperWrapper.classList.add('swiper-wrapper');
 
   initializeSwiper()
 }
+function isSeller(seller) {
+  const authUser = controllers.AuthController.authUser;
+  if (authUser.name === seller) return true;
+  return false;
+}
 
+
+function attachBidEvent(id) {
+  const form = document.forms.bid;
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      controllers.ListingsController.onBid(event, id);
+
+      // utils.redirectTo(`/`);
+    });
+  }
+}
 // function attachEditEvent(id) {
 //   const editButton = document.getElementById('editPost');
 //   if (editButton) {
@@ -172,11 +209,6 @@ swiperWrapper.classList.add('swiper-wrapper');
 //   }
 // }
 
-function isSeller(seller) {
-  const authUser = controllers.AuthController.authUser;
-  if (authUser.name === seller) return true;
-  return false;
-}
 
 // function renderCommentElement(post, id, target) {
 //   renderCommentInput(post.author, target);

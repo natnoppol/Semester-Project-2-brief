@@ -3,6 +3,10 @@
 @import url(components/form.css);
 @import url(components/input.css);
 
+@import url(element/tag.css);
+
+
+
 
 /* src/style.css */
 @tailwind base;

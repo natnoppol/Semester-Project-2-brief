@@ -1,21 +1,21 @@
 import { Listing } from "./Listing";
 
 export class Listings {
-  constructor(Listings = []) {
-    this.Listings = Listings.map(
-      (Listing) =>
+  constructor(listings = []) {
+    this.listings = listings.map(
+      (listing) =>
         new Listing(
-          Listing._count,
-          Listing.description,
-          Listing.created,
-          Listing.id,
-          Listing.media,
-          Listing.tags,
-          Listing.title,
-          Listing.updated,
-          Listing.seller,
-          Listing.bids,
-          Listing.endsAt,
+          listing._count,
+          listing.description,
+          listing.created,
+          listing.id,
+          listing.media,
+          listing.tags,
+          listing.title,
+          listing.updated,
+          listing.seller,
+          listing.bids,
+          listing.endsAt,
         )
     );
   }
