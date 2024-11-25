@@ -5,7 +5,7 @@ import models from '../models/index';
 class ListingsRepository {
     async create(data) {
       const payload = JSON.stringify(data);
-      const endpoint = `${API_ACTION_LISTING}`;
+      const endpoint = `${API_ACTION_LISTING}?_active=true`;
       const response = await fetch(endpoint, {
         method: 'post',
         headers: headers(),
@@ -38,7 +38,7 @@ class ListingsRepository {
     }
     //single listing after create
     async listing(id) {
-      const endpoint = `${API_ACTION_LISTING}/${id}?_seller=true&_bids=true`;
+      const endpoint = `${API_ACTION_LISTING}/${id}?_seller=true&_bids=true&_active=true`;
       const response = await fetch(endpoint, {
         method: 'GET',
         headers: headers(),
@@ -69,7 +69,7 @@ class ListingsRepository {
     }
 
     async listings(page = 1) {
-      const endpoint = `${API_ACTION_LISTING}?limit=12&page=${page}&_seller=true&_bids=true`;
+      const endpoint = `${API_ACTION_LISTING}?limit=100&page=${page}&_seller=true&_bids=true&_active=true&sort=endsAt&sortOrder=asc`;
       const response = await fetch(endpoint, {
         method: 'GET',
         headers: headers(),
@@ -101,7 +101,7 @@ class ListingsRepository {
   
       try {
         const { data, meta } = await response.json();
-        console.log("data of bids", data)
+        
 
         return {
           success: true,

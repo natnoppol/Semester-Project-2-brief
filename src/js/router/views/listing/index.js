@@ -58,7 +58,7 @@ swiperWrapper.classList.add('swiper-wrapper');
   const mediaSlides = listings.media?.map(mediaItem => {
     return `
      <div class="swiper-slide h-5 dark:bg-gray-800 items-center rounded-lg">
-        <img class="m-auto" 
+        <img class="w-full max-h-96 object-contain" 
           src="${mediaItem.url ? mediaItem.url : ''}" 
           alt="${mediaItem.alt ? mediaItem.alt : ''}" />
     </div>
@@ -174,13 +174,11 @@ function isSeller(seller) {
 
 function attachBidEvent(id) {
   const form = document.forms.bid;
+  
   if (form) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-
       controllers.ListingsController.onBid(event, id);
-
-      // utils.redirectTo(`/`);
     });
   }
 }

@@ -57,6 +57,7 @@ export async function renderListings(listings, target) {
   if (target) {
     const listingsElement = listings.map((listing) => {
       const createdDate = utils.date(listing.created);
+      const createEndAt = utils.date(listing.endsAt);
       const tags = utils.formatTags(listing.tags);
 
       const listingElement = document.createElement("div");
@@ -118,7 +119,7 @@ export async function renderListings(listings, target) {
           </div>
         </a>
         <div class="bids-section">
-          <h3 class="text-lg font-medium">Current Bids</h3>
+          <h3 class="text-lg font-medium">End at: ${createEndAt}</h3>
           ${bid}
         </div>
       </div>
