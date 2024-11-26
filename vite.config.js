@@ -22,6 +22,7 @@ export default defineConfig({
         register: resolve(__dirname, "./auth/register/index.html"),
         profile: resolve(__dirname, "./profile/index.html"),
         createlisting: resolve(__dirname, "./listing/create/index.html"),
+        search: resolve(__dirname, "./search/index.html"),
         // auth: resolve(__dirname, "./auth/index.html"),
         // post: resolve(__dirname, "./post/index.html"),
         // editPost: resolve(__dirname, "./post/edit/index.html"),

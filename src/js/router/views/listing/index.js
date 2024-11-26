@@ -1,3 +1,5 @@
+import { authGuard } from '../../../utilities/authGuard';
+
 import controllers from '../../../controllers/index';
 import utils from '../../../utilities/utils';
 // import { initComment } from './comment';
@@ -9,6 +11,8 @@ async function init() {
 //   clearContent(container);
 
   try {
+    await authGuard();
+
     const id = utils.getUrlParams('id');
     const listings = await fetchListings(id);
 

@@ -5,8 +5,8 @@ import ProfileController from './ProfileController';
 import RegisterController from './RegisterController';
 import ListingsController from './ListingsController';
 import TagsController from './TagsController';
+import SearchController from './SearchController';
 // import FollowController from './FollowController';
-// import SearchController from './SearchController';
 // import CommentController from './CommentController';
 
 
@@ -18,8 +18,8 @@ const controllers = {
   RegisterController,
   ListingsController,
   TagsController,
+  SearchController,
 //   FollowController,
-//   SearchController,
 //   CommentController
 };
 

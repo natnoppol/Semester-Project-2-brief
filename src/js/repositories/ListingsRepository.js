@@ -69,7 +69,7 @@ class ListingsRepository {
     }
 
     async listings(page = 1) {
-      const endpoint = `${API_ACTION_LISTING}?limit=100&page=${page}&_seller=true&_bids=true&_active=true&sort=endsAt&sortOrder=asc`;
+      const endpoint = `${API_ACTION_LISTING}?limit=12&page=${page}&_seller=true&_bids=true&_active=true&sort=endsAt&sortOrder=asc`;
       const response = await fetch(endpoint, {
         method: 'GET',
         headers: headers(),

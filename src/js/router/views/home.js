@@ -1,6 +1,5 @@
-import { authGuard } from "../../utilities/authGuard";
 import utils from "../../utilities/utils";
-authGuard();
+
 
 import controllers from "../../controllers/index";
 // import InfiniteScroll from '../../utilities/infiniteScroll';

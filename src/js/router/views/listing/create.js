@@ -1,3 +1,5 @@
+import { authGuard } from '../../../utilities/authGuard';
+authGuard();
 import controllers from '../../../controllers/index';
 import utils from '../../../utilities/utils';
 

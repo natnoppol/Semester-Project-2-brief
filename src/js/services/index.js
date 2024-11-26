@@ -2,8 +2,8 @@ import AuthService from './AuthService';
 import ProfileService from './ProfileService';
 import ListingsService from './ListingsService'
 import TagService from './TagService';
+import SearchService from './SearchService';
 // import FollowService from './FollowService';
-// import SearchService from './SearchService';
 // import CommentService from './CommentService';
 
 const services = {
@@ -11,8 +11,8 @@ const services = {
   ProfileService,
   ListingsService,
   TagService,
+  SearchService,
   // FollowService,
-  // SearchService,
   // CommentService
 };
 

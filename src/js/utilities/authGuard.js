@@ -7,6 +7,7 @@ export async function authGuard() {
   if (!token){
     alert('You must be logged in to view this page');
     utils.redirectTo('/auth/login/');
+    throw new Error('User not authenticated');
   }
 }
 

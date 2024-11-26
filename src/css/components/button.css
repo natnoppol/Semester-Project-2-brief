@@ -1,0 +1,10 @@
+.btn-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    left: -3rem;
+    width: 3rem;
+  }

@@ -2,8 +2,8 @@ import AuthRepository from './AuthRepository';
 import ListingsRepository from './ListingsRepository'
 import ProfileRepository from './ProfileRepository';
 import TagRepository from './TagRepository';
+import SearchRepository from './SearchRepository';
 // import FollowRepository from './FollowRepository';
-// import SearchRepository from './SearchRepository';
 // import CommentRepository from './CommentRepository';
 
 const repositories = {
@@ -11,8 +11,8 @@ const repositories = {
   ProfileRepository,
   ListingsRepository,
   TagRepository,
+  SearchRepository,
 //   FollowRepository,
-//   SearchRepository,
 //   CommentRepository
 };
 
