@@ -17,9 +17,9 @@ class ProfileService {
     return await this.profileRepository.update(name, data);
   }
 
-//   async posts(name, page = 1) {
-//     return await this.profileRepository.posts(name, page);
-//   }
+  async listings(name, page = 1) {
+    return await this.profileRepository.listings(name, page);
+  }
 
 //   async follow(name) {
 //     return await this.profileRepository.follow(name);

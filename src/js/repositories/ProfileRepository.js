@@ -95,27 +95,27 @@ class ProfileRepository {
     }
   }
 
-//   async posts(name, page = 1) {
-//     const endpoint = `${API_ACTION_PROFILES}/${name}/posts?limit=12&page=${page}&_author=true&_posts=true&_following=true&_followers=true&_comments=true`;
-//     const response = await fetch(endpoint, {
-//       method: 'GET',
-//       headers: headers(),
-//     });
+  async listings(name, page = 1) {
+    const endpoint = `${API_ACTION_PROFILES}/${name}/listings?limit=12&page=${page}_listings=true&_wins=true`;
+    const response = await fetch(endpoint, {
+      method: 'GET',
+      headers: headers(),
+    });
 
-//     if (!response.ok) throw new Error('Fetching all posts by profile failed');
+    if (!response.ok) throw new Error('Fetching all listings by profile failed');
 
-//     try {
-//       const { data, meta } = await response.json();
+    try {
+      const { data, meta } = await response.json();
 
-//       return {
-//         success: true,
-//         data: new models.Posts(data),
-//         meta,
-//       };
-//     } catch (error) {
-//       return { success: false, message: error.message };
-//     }
-//   }
+      return {
+        success: true,
+        data: new models.Listings(data),
+        meta,
+      };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
 
 //   async follow(name) {
 //     const endpoint = `${API_ACTION_PROFILES}/${name}/follow`;

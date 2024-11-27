@@ -109,12 +109,12 @@ swiperWrapper.classList.add('swiper-wrapper');
                   </a>
                 </div>
                 <div>
-                  <h2 class="text-white dark:text-white text-lg font-medium">listed on: ${listingCreated}</h2>
+                  <h2 class="text-white dark:text-white text-lg font-medium">Listed on: ${listingCreated}</h2>
                 </div>
               </div>             
 
               <div class="flex flex-col justify-between flex-grow">
-                <h2 class="leading-relaxed text-xl text-white dark:text-gray-300 ">
+                <h2 class="leading-relaxed text-2xl font-bold text-white dark:text-gray-300 uppercase">
                   ${listings.title}
                 </h2>
       
@@ -123,21 +123,14 @@ swiperWrapper.classList.add('swiper-wrapper');
                 </div>
 
                 <div>
-                  <div id="article-body" class="leading-relaxed text-xl text-white dark:text-gray-300 ">
+                  <div id="article-body" class="text-lg font-bold text-white dark:text-gray-300">Description:
                   ${listings.description}
                 </div>
               </div>
-              <div class=" flex gap-4 ">
-                  ${
-                  isSeller(listings.seller.name)
-                  ? `<button class="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" id="editlistings">Edit listings</button>
-                  <button class="w-full text-white btn-danger-cancel hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" id="deletePost">Delete Post</button>`
-                  : ''
-                  }
-              </div>
-              <div class="bidding-section">
-                <form class="bid-form" data-listing-id="LISTING_ID" id="bid" name="bid">
-                  <label for="bidAmount" class="leading-relaxed text-base text-white dark:text-gray-300">Place Your Bid</label>
+              
+              <div class="bidding-section mt-6 space-y-4 ">
+                <form class="bid-form " data-listing-id="LISTING_ID" id="bid" name="bid">
+                  <label for="bidAmount" class="leading-relaxed text-lg font-bold text-white dark:text-gray-300">Place Your Bid:</label>
                   <input
                     type="number"
                     id="bidAmount"
@@ -155,6 +148,14 @@ swiperWrapper.classList.add('swiper-wrapper');
                     Bid
                   </button>
                 </form>
+                <div class=" flex gap-4 ">
+                  ${
+                  isSeller(listings.seller.name)
+                  ? `<button class="w-full text-white bg-blue-400 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" id="editlistings">Edit listings</button>
+                  <button class="w-full text-white btn-danger-cancel bg-red-400 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" id="deletePost">Delete Post</button>`
+                  : ''
+                  }
+                </div>
               </div>
             </div>
           </div>

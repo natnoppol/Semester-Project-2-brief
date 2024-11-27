@@ -1,6 +1,5 @@
 import utils from "../../utilities/utils";
 
-
 import controllers from "../../controllers/index";
 // import InfiniteScroll from '../../utilities/infiniteScroll';
 
@@ -34,7 +33,7 @@ async function init() {
 
     // Load the first page of posts initially
   const { data, meta } = await fetchListings(1);
-  console.log(data)
+  
   renderListings(data, container);
  
 
@@ -66,14 +65,14 @@ export async function renderListings(listings, target) {
       );
 
       
-      const mediaMarkup = getMediaMarkup(listing)
+      const mediaHeader = getMediaHeader(listing)
       const bid = getCurrentBid(listing);
 
 
       listingElement.innerHTML = `
   <div class="p-4 max-w-xl w-full">
     <div class="flex rounded-lg h-full dark:bg-gray-800 bg-teal-400 p-8 flex-col">
-      <div>${mediaMarkup}</div>
+      <div>${mediaHeader}</div>
       <div class="flex items-center mb-3">
         <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full dark:bg-indigo-500 bg-indigo-500 text-white flex-shrink-0">
           <a class="" href="/profile/?seller=${listing.seller.name}">
@@ -86,7 +85,7 @@ export async function renderListings(listings, target) {
         <div>
           <div>
             <a href="/profile/?seller=
-            ${listing.seller.name}">
+            ${encodeURIComponent(listing.seller.name)}">
             <h2 class="text-white dark:text-white text-lg font-medium hover:text-blue-600">${listing.seller.name}</h2>
             </a>
           </div>
@@ -105,17 +104,7 @@ export async function renderListings(listings, target) {
         <div class="leading-relaxed text-base text-white dark:text-gray-300">
         ${tags}
         </div>
-        <a class="mt-3 text-black dark:text-white hover:text-blue-600 inline-flex items-center" href="/listing/?id=${listing.id}#comments">
-          <div class="flex items-center gap-1">
-                    <ion-icon class="icon-comment" name="chatbubble-outline"></ion-icon>
-                    ${
-                      listing._count.comments === 0
-                        ? "Add Comment"
-                        : listing._count.comments > 1
-                          ? ` ${listing._count.comments} comments`
-                          : `${listing._count.comments} comment`
-                    }
-          </div>
+       
         </a>
         <div class="bids-section">
           <h3 class="text-lg font-medium">End at: ${createEndAt}</h3>
@@ -168,7 +157,7 @@ function getCurrentBid(listing) {
     </ul>`; // If no bids
 }
 
-function getMediaMarkup(listing){
+function getMediaHeader(listing){
   return listing.media[0] ? `
           <div class="flex items-center mb-3">
             <div class="w-full h-auto mr-3 inline-flex items-center justify-center flex-shrink-0">
