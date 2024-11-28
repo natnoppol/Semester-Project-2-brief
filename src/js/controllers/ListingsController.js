@@ -37,9 +37,11 @@ structuredTags(tags) {
 }
 structuredMedia(data) {
   const mediaArray = data.media ? data.media.split(',').map((url) => url.trim()) : [];
-  return mediaArray.map((url) => ({
+  const altArray = data.alt ? data.alt.split(',').map((alt) => alt.trim()) : [];
+  
+  return mediaArray.map((url,  index) => ({
     url: url,
-    alt: data.alt || '',  
+    alt: altArray[index] || `${index + 1}` 
   }));
 }
 
@@ -94,58 +96,54 @@ structuredMedia(data) {
         console.error("Error while placing bid:", error);
       }
     }
+
+    async update(id, data) {
+
+      try {
+        const { data: listingData, meta } = await this.ListingsService.update(id, data);
+        console.log('Create listing success:', { listingData });
+        // Handle successful login, e.g., redirect
+        utils.redirectTo(`/listing/?id=${listingData.id}`);
+      } catch (error) {
+        console.error('Update listing failed:', error);
+        // Handle failed create listing, e.g., show error message
+      }
+    }
+    async onUpdateListing(event, id) {
+      const form = event.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      if (data.tags) data.tags = this.structuredTags(data.tags);
+      if (data.media) data.media = this.structuredMedia(data);
+      
+      await this.update(id, data);
+    }
     
-
-    
-    
-    // async onDeletePost(id) {
-    //   await this.delete(id);
-    // }
-
-
-//   async update(id, data) {
-//     try {
-//       const { data: postData, meta } = await this.postService.update(id, data);
-//       console.log('Create post success:', { postData });
-//       // Handle successful login, e.g., redirect
-//       utils.redirectTo(`/post/?id=${postData.id}`);
-//     } catch (error) {
-//       console.error('Create post failed:', error);
-//       // Handle failed create post, e.g., show error message
-//     }
-//   }
-
-//   async delete(id) {
-//     try {
-//       const resposne = await this.postService.delete(id);
-//       if (resposne.success) {
-//         console.log(resposne.message);
-//         alert(resposne.message);
-//         utils.redirectTo('/');
-//       } else {
-//         console.error('Failed to delete post:', result.message);
-//         alert('Error deleting post');
-//       }
-//     } catch (error) {
-//       console.error('Error deleting post:', error);
-//       alert('An error occurred while deleting the post.');
-//     }
-//   }
-
-
-
-
-//   async onUpdatePost(event, id) {
-//     const form = event.target;
-//     const formData = new FormData(form);
-//     const data = Object.fromEntries(formData.entries());
-
-//     if (data.tags) data.tags = this.structuredTags(data.tags);
-//     if (data.media) data.media = this.structuredMedia(data);
-
-//     await this.update(id, data);
-//   }
-
+      async delete(id) {
+          try {
+              const resposne = await this.ListingsService.delete(id);
+              if (resposne.success) {
+                  console.log(resposne.message);
+                  alert(resposne.message);
+                  utils.redirectTo('/');
+                } else {
+                    console.error('Failed to delete listing:', result.message);
+                    alert('Error deleting listing');
+                  }
+                } catch (error) {
+                    console.error('Error deleting listing:', error);
+                    alert('An error occurred while deleting the listing.');
+                  }
+                }
+              
+    async onDeleteListing(id) {
+      await this.delete(id);
+    }
+              
+              
+              
+              
 }
 
 export default new ListingsController();

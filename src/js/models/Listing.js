@@ -25,4 +25,3 @@ export class Listing {
       this.endsAt = endsAt;
     }
   }
-  
