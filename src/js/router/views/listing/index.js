@@ -44,14 +44,14 @@ function clearContent(target) {
 
 async function renderListings(listings, target) {
   const listingElement = document.createElement('article');
-    listingElement.classList.add('max-w-full', 'mx-auto', 'p-4', 'w-full','sm:w-1/2', 'lg:w-2/3', 'swiper');
+    listingElement.classList.add('max-w-full', 'mx-auto', 'p-4', 'w-full','sm', 'lg:w-2/3', 'swiper');
   
 const swiperWrapper = document.createElement('div');
 swiperWrapper.classList.add('swiper-wrapper');
 
   const SecondListingElement = document.createElement('div');
 
-  SecondListingElement.classList.add('max-w-full','mx-auto', 'p-4', 'w-full','sm:w-1/2', 'lg:w-2/3');
+  SecondListingElement.classList.add('max-w-full','mx-auto', 'p-4', 'w-full','sm', 'lg:w-2/3');
 
   const listingCreated = utils.date(listings.created);
   const tags = utils.formatTags(listings.tags);
@@ -134,7 +134,7 @@ swiperWrapper.classList.add('swiper-wrapper');
                     id="bidAmount"
                     name="bidAmount"
                     placeholder="Enter your bid amount"
-                    class="w-full mt-1 border rounded px-3 py-2"
+                    class="mx-auto mt-1 border rounded px-3 py-2"
                     min="1"
                     required
                   />

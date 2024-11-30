@@ -51,7 +51,7 @@ async function fetchListings(page = 1) {
   return { data: data.listings, meta };
 }
 
-export async function renderListings(listings, target) {
+export async function renderListings(listings, target, isProfilePage = false) {
   if (target) {
     const listingsElement = listings.map((listing) => {
       const createdDate = utils.date(listing.created);
@@ -65,34 +65,37 @@ export async function renderListings(listings, target) {
       );
 
       
-      const mediaHeader = getMediaHeader(listing)
+      const mediaHeader = isProfilePage ? '' : getMediaHeader(listing);
       const bid = getCurrentBid(listing);
+      const sellerDetails = isSellerActive(listing.seller)
+  ? `
+     <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full dark:bg-indigo-500 bg-indigo-500 text-white flex-shrink-0">
+       <a class="" href="/profile/?seller=${listing.seller.name}">
+         <img class="" src="${listing.seller.avatar?.url || ''}" alt="${listing.seller.avatar?.alt || ''}" width="32" height="32" />
+       </a>
+     </div>
+     <div>
+       <div>
+         <a href="/profile/?seller=${encodeURIComponent(listing.seller.name)}">
+           <h2 class="text-white dark:text-white text-lg font-medium hover:text-blue-600">${listing.seller.name}</h2>
+         </a>
+       </div>
+       <div>
+         <h2 class="text-white dark:text-white text-lg font-medium">${createdDate}</h2>
+       </div>
+     </div>`
+  : '';
+
 
 
       listingElement.innerHTML = `
   <div class="p-4 max-w-xl w-full">
     <div class="flex rounded-lg h-full dark:bg-gray-800 bg-teal-400 p-8 flex-col">
       <div>${mediaHeader}</div>
+
       <div class="flex items-center mb-3">
-        <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full dark:bg-indigo-500 bg-indigo-500 text-white flex-shrink-0">
-          <a class="" href="/profile/?seller=${listing.seller.name}">
-            <img class="" src="${
-              listing.seller.avatar.url
-            }" alt="${listing.seller.avatar.alt} width="32" height="32" />
-          </a>
-        </div>
-   
-        <div>
-          <div>
-            <a href="/profile/?seller=
-            ${encodeURIComponent(listing.seller.name)}">
-            <h2 class="text-white dark:text-white text-lg font-medium hover:text-blue-600">${listing.seller.name}</h2>
-            </a>
-          </div>
-          <div>
-            <h2 class="text-white dark:text-white text-lg font-medium">${createdDate}</h2>
-          </div>
-        </div>
+
+      ${sellerDetails}
 
       </div>
       <div class="flex flex-col justify-between flex-grow gap-1">
@@ -170,6 +173,11 @@ function getMediaHeader(listing){
           </div>
           `
         : ''; // Join the array into a single string
+}
+
+function isSellerActive(seller) {
+ 
+  return seller && seller.name ? true : false;
 }
 
 init();

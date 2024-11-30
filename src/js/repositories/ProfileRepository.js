@@ -96,7 +96,7 @@ class ProfileRepository {
   }
 
   async listings(name, page = 1) {
-    const endpoint = `${API_ACTION_PROFILES}/${name}/listings?limit=12&page=${page}_listings=true&_wins=true`;
+    const endpoint = `${API_ACTION_PROFILES}/${name}/listings?limit=12&page=${page}&_listings=true&_wins=true`;
     const response = await fetch(endpoint, {
       method: 'GET',
       headers: headers(),

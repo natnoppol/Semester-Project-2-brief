@@ -62,9 +62,9 @@ class ProfileController {
   onCancelProfileUpdate() {
     utils.redirectTo(`/profile/`);
   }
-  async listings(name) {
+  async listings(name, page) {
     try {
-      const { data, meta } = await this.profileService.listings(name);
+      const { data, meta } = await this.profileService.listings(name, page);
       return { data, meta };
     } catch (error) {
       console.error('Fetch posts on profile error:', error);

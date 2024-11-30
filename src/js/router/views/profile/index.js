@@ -1,9 +1,11 @@
 import { authGuard } from '../../../utilities/authGuard';
 authGuard();
+
 import utils from '../../../utilities/utils';
 import controllers from '../../../controllers/index';
-// import { renderPosts } from '../home';
-// import InfiniteScroll from '../../../utilities/infiniteScroll';
+import { renderListings } from '../home';
+
+import InfiniteScroll from '../../../utilities/infiniteScroll';
 
 async function init() {
   utils.humberger()
@@ -13,53 +15,55 @@ async function init() {
   const profile = await fetchProfile(user);
   const articleContainer = document.querySelector('.articles-list');
 
-//   const infiniteScroll = new InfiniteScroll({
-//     container: articleContainer,
-//     threshold: 200,
-//     onLoad: async () => {
-//       try {
-//         const currentRenderedCount = articleContainer.children.length;
-//         const { data, meta } = await fetchAuthorPosts(
-//           author,
-//           infiniteScroll.nextPage
-//         );
-//         const { posts } = data;
+  const infiniteScroll = new InfiniteScroll({
+    container: articleContainer,
+    threshold: 200,
+    onLoad: async () => {
+      try {
+        const currentRenderedCount = articleContainer.children.length;
 
-//         // Stop loading if all items are rendered
-//         if (currentRenderedCount >= meta.totalItems) {
-//           infiniteScroll.isLastPage = true;
-//           return;
-//         }
+        const { data, meta } = await fetchSellerListings(
+          user,
+          infiniteScroll.nextPage
+        );
+        const { listings } = data;
 
-//         await renderPosts(posts, articleContainer);
-//         infiniteScroll.currentPage = meta.currentPage;
-//         infiniteScroll.totalPages = meta.pageCount;
-//         infiniteScroll.nextPage = meta.nextPage;
+        // Stop loading if all items are rendered
+        if (currentRenderedCount >= meta.totalItems) {
+          infiniteScroll.isLastPage = true;
+          return;
+        }
 
-//         if (articleContainer.children.length >= meta.totalItems) {
-//           infiniteScroll.isLastPage = true;
-//         }
-//       } catch (error) {
-//         console.error('Error loading more posts:', error);
-//         articleContainer.innerHTML +=
-//           '<p>Error loading more posts. Please try again later.</p>';
-//         infiniteScroll.isLastPage = true;
-//       }
-//     },
-//   });
+        await renderListings(listings, articleContainer);
+        infiniteScroll.currentPage = meta.currentPage;
+        infiniteScroll.totalPages = meta.pageCount;
+        infiniteScroll.nextPage = meta.nextPage;
 
-  // const { data, meta } = await fetchSellerListings(user, 1);
+        if (articleContainer.children.length >= meta.totalItems) {
+          infiniteScroll.isLastPage = true;
+        }
+      } catch (error) {
+        console.error('Error loading more listings:', error);
+        articleContainer.innerHTML +=
+          '<p>Error loading more listings. Please try again later.</p>';
+        infiniteScroll.isLastPage = true;
+      }
+    },
+  });
+
+  const { data, meta } = await fetchSellerListings(user, 1);
+  
+
   renderProfileData(profile);
   attachProfileEditEvent();
-  // renderListingsData(data.listings);
+  renderListingsData(data.listings);
 
-//   await setupFollowButton(profile.name);
 
-//   // Initialize pagination state
-//   infiniteScroll.currentPage = meta.currentPage;
-//   infiniteScroll.totalPages = meta.pageCount;
-//   infiniteScroll.nextPage = meta.nextPage;
-//   infiniteScroll.isLastPage = meta.isLastPage;
+  // Initialize pagination state
+  infiniteScroll.currentPage = meta.currentPage;
+  infiniteScroll.totalPages = meta.pageCount;
+  infiniteScroll.nextPage = meta.nextPage;
+  infiniteScroll.isLastPage = meta.isLastPage;
 }
 
 async function fetchProfile(user) {
@@ -139,13 +143,32 @@ function attachProfileEditEvent() {
       user,
       page
     );
+    //this return will not give seller data
     return { data, meta };
   }
+  
+  function renderSellerSection(listing) {
+    if (!listing?.seller?.name) {
+      // If no seller data, return an empty string (no content rendered)
+      return '';
+    }
+  
+    // If seller data exists, render the section
+    return `
+      <div class="seller-section">
+        <a href="/profile/?seller=${encodeURIComponent(listing.seller.name)}">
+          <h2>${listing.seller.name}</h2>
+        </a>
+        <img src="${listing.seller.avatar?.url || ''}" alt="${listing.seller.avatar?.alt || ''}" width="32" height="32" />
+      </div>
+    `;
+  }
+  
 
 
 function renderListingsData(listings) {
   const articleContainer = document.querySelector('.articles-list');
-  renderPosts(posts, articleContainer);
+  renderListings(listings, articleContainer, true);
 }
 
 
