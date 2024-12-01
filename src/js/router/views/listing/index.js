@@ -7,6 +7,9 @@ import { initializeSwiper } from '../../../../main';
 import { list } from 'postcss';
 
 async function init() {
+  const loadingIndicator = document.getElementById("loading-indicator");
+  loadingIndicator.classList.remove("hidden");
+
   utils.humberger()
   const container = document.querySelector('.container');
   clearContent(container);
@@ -23,7 +26,9 @@ async function init() {
   } catch (error) {
     console.error('Error fetching Listings:', error);
     container.innerHTML = '<p>Error loading Listings. Please try again later.</p>';
-  }
+  }finally {
+      loadingIndicator.classList.add('hidden');
+    }
 }
 async function fetchListings(id) {
   const { data } = await controllers.ListingsController.listing(id);

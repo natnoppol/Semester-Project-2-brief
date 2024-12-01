@@ -4,16 +4,23 @@ import controllers from "../../controllers/index";
 import InfiniteScroll from '../../utilities/infiniteScroll';
 
 async function init() {
-  utils.humberger()
+  const loadingIndicator = document.getElementById('loading-indicator');
+
+  utils.humberger();
   
-    const container = document.querySelector(".main-content");
-    clearContent(container);
+  const container = document.querySelector(".main-content");
+  clearContent(container);
+
+  loadingIndicator.classList.remove('hidden');
   
     const infiniteScroll = new InfiniteScroll({
       container: container,
       threshold: 200,
       onLoad: async () => {
         try {
+         
+          loadingIndicator.classList.remove('hidden'); // Show loading indicator
+          
           if (infiniteScroll.nextPage <= infiniteScroll.totalPages) {
             const { data, meta } = await fetchListings(infiniteScroll.nextPage);
             await renderListings(data, container, utils.isProfilePage());
@@ -27,20 +34,27 @@ async function init() {
           console.error('Error loading more listings:', error);
           container.innerHTML +=
             '<p>Error loading more listings. Please try again later.</p>';
+        }finally {
+          loadingIndicator.classList.add('hidden'); // Hide loading indicator
         }
       },
     });
 
-    // Load the first page of listings initially
-  const { data, meta } = await fetchListings(1);
-  renderListings(data, container, utils.isProfilePage());
-  console.log(utils.isProfilePage())
- 
-  // Set initial pagination details
-  infiniteScroll.currentPage = meta.currentPage;
-  infiniteScroll.totalPages = meta.pageCount;
-  infiniteScroll.nextPage = meta.nextPage;
-}
+    try {
+      const { data, meta } = await fetchListings(1);
+      renderListings(data, container, utils.isProfilePage());
+  
+      // Set initial pagination details
+      infiniteScroll.currentPage = meta.currentPage;
+      infiniteScroll.totalPages = meta.pageCount;
+      infiniteScroll.nextPage = meta.nextPage;
+    } catch (error) {
+      console.error('Error loading initial listings:', error);
+      container.innerHTML = '<p>Error loading listings. Please try again later.</p>';
+    } finally {
+      loadingIndicator.classList.add('hidden');
+    }
+  }
 
 function clearContent(target) {
   if (target) target.innerHTML = "";

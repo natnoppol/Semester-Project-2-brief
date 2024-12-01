@@ -1,7 +1,7 @@
 import utils from '../../../utilities/utils';
 import { renderListings } from '../home';
 
-import InfiniteScroll from '../../../utilities/InfiniteScroll';
+import InfiniteScroll from '../../../utilities/infiniteScroll';
 
 import controllers from '../../../controllers';
 
