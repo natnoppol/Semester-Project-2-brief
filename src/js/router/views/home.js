@@ -5,13 +5,13 @@ import InfiniteScroll from '../../utilities/infiniteScroll';
 
 async function init() {
   const loadingIndicator = document.getElementById('loading-indicator');
+  loadingIndicator.classList.remove('hidden');
 
   utils.humberger();
   
   const container = document.querySelector(".main-content");
   clearContent(container);
 
-  loadingIndicator.classList.remove('hidden');
   
     const infiniteScroll = new InfiniteScroll({
       container: container,

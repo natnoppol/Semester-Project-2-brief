@@ -30,6 +30,9 @@ export default async function router(pathname = window.location.pathname) {
       case "/listing/edit/":
         await import("./views/listing/update.js");
         break;
+      case "/tags/":
+        await import("./views/tags/index.js");
+        break;
       default:
         await import("./views/notFound.js");
     }

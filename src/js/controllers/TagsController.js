@@ -8,7 +8,6 @@ class TagController {
   async tags(tag) {
     try {
       const { data, meta } = await this.tagService.tags(tag);
-      console.log("data of tags",data)
       return { data, meta };
     } catch (error) {
       console.error('Fetch tags error:', error);
