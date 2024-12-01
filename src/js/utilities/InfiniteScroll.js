@@ -7,6 +7,8 @@ class InfiniteScroll {
       this.totalPages = null;
       this.nextPage = null;
       this.isLastPage = false;
+      this.loading = false;
+      this.delay = false; // To track the delay state
   
       // window.addEventListener('scroll', this.handleScroll.bind(this));
       window.addEventListener('scroll', this.debounce(this.handleScroll.bind(this), 300));
@@ -29,8 +31,15 @@ class InfiniteScroll {
         document.body.offsetHeight - this.threshold
       ) {
         this.loading = true; // Set loading to true to prevent repeated calls
-        await this.onLoad();
-        this.loading = false; // Reset loading after load is complete
+
+        // Introduce a delay before calling the onLoad function
+        this.delay = true; // Disable further scroll events
+
+        setTimeout(async () => {
+          await this.onLoad(); // Call the onLoad function after the delay
+          this.delay = false; // Re-enable scrolling after the delay
+          this.loading = false; // Reset loading after load is complete
+        }, 5000); // 5-second delay
       }
     }
   }

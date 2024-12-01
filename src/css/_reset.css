@@ -16,5 +16,12 @@
   .container {
     min-height: 100%; 
   }
+
+  .img-400 {
+    width: 400px;
+    height: 400px;
+    object-fit: cover; 
+    border-radius: 1rem; 
+  }
   
   

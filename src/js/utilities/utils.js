@@ -21,7 +21,7 @@ const utils = {
         (tag) =>
           `<a href="/tags/?tag=${encodeURIComponent(
             tag
-          )}" class="tag bg-gray-100 rounded-2xl text-sm px-1 py-2 hover:bg-gray-200">#${tag}</a>`
+          )}" class="text-lg font-semibold">#${tag}</a>`
       ) // Add '#' before each tag
       .join(' '); // Join tags with a space
   },
@@ -99,6 +99,9 @@ const utils = {
       return secondsAgo > 1 ? `${secondsAgo} seconds ago` : 'now';
     },
   
+    isProfilePage: () => {
+      return window.location.pathname.includes('/profile');
+    }
 };
   
   export default utils;

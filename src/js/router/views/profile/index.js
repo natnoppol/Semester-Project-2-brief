@@ -7,6 +7,8 @@ import { renderListings } from '../home';
 
 import InfiniteScroll from '../../../utilities/infiniteScroll';
 
+const id = utils.getUrlParams('id');
+
 async function init() {
   utils.humberger()
 
@@ -34,7 +36,7 @@ async function init() {
           return;
         }
 
-        await renderListings(listings, articleContainer);
+        await renderListings(listings, articleContainer, utils.isProfilePage());
         infiniteScroll.currentPage = meta.currentPage;
         infiniteScroll.totalPages = meta.pageCount;
         infiniteScroll.nextPage = meta.nextPage;
@@ -147,28 +149,13 @@ function attachProfileEditEvent() {
     return { data, meta };
   }
   
-  function renderSellerSection(listing) {
-    if (!listing?.seller?.name) {
-      // If no seller data, return an empty string (no content rendered)
-      return '';
-    }
-  
-    // If seller data exists, render the section
-    return `
-      <div class="seller-section">
-        <a href="/profile/?seller=${encodeURIComponent(listing.seller.name)}">
-          <h2>${listing.seller.name}</h2>
-        </a>
-        <img src="${listing.seller.avatar?.url || ''}" alt="${listing.seller.avatar?.alt || ''}" width="32" height="32" />
-      </div>
-    `;
-  }
   
 
 
 function renderListingsData(listings) {
   const articleContainer = document.querySelector('.articles-list');
-  renderListings(listings, articleContainer, true);
+
+  renderListings(listings, articleContainer, utils.isProfilePage());
 }
 
 
