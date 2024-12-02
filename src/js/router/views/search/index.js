@@ -6,10 +6,15 @@ import InfiniteScroll from '../../../utilities/infiniteScroll';
 import controllers from '../../../controllers';
 
 async function init() {
+  const loadingIndicator = document.getElementById("loading-indicator");
+  loadingIndicator.classList.remove("hidden");
+
   const container = document.querySelector('#main-content');
+  const containerSearch = document.getElementById('container-search')
+
 
   const query = utils.getUrlParams('q');
-  container.appendChild(renderPageHeader(query)); // show result of users searching
+  containerSearch.appendChild(renderPageHeader(query)); // show result of users searching
 
   const articleList = renderStoryContainer(); // Call function to create article list
   container.appendChild(articleList);
@@ -19,6 +24,8 @@ async function init() {
     threshold: 200,
     onLoad: async () => {
       try {
+        loadingIndicator.classList.remove("hidden");
+
         const currentRenderedCount = articleList.children.length;
         const { data, meta } = await performSearch(query, infiniteScroll.nextPage);
 
@@ -49,7 +56,9 @@ async function init() {
         console.error('Error loading more listings:', error);
         articleList.innerHTML += '<p>Error loading more listings. Please try again later.</p>';
         infiniteScroll.isLastPage = true;
-      }
+      }finally {
+      loadingIndicator.classList.add('hidden');
+    }
     },
   });
 
@@ -69,8 +78,7 @@ async function init() {
 function renderStoryContainer() {
   const articleList = document.createElement('div');
   articleList.id = 'article-list';
-  articleList.classList.add('article-list', 'layout-content');
-
+  articleList.classList.add('article-list', 'grid', 'grid-cols-1','md:grid-cols-2','lg:grid-cols-4','gap-6');
   const subStories = document.createElement('div');
   subStories.id = 'substories';
   subStories.classList.add('substories', 'search-result-loaded');

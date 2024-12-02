@@ -75,7 +75,7 @@ export async function renderListings(listings, target, isProfilePage) {
       const listingElement = document.createElement("div");
       listingElement.setAttribute(
         'class',
-        'flex justify-center rounded mx-auto mb-2 w-full max-w-[616px] w-full'
+        'flex justify-center rounded mx-auto mb-2 w-full max-w-[616px] w-full duration-500 hover:scale-105 hover:shadow-xl'
       );
 
     

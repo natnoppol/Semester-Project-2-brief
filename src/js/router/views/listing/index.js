@@ -49,14 +49,14 @@ function clearContent(target) {
 
 async function renderListings(listings, target) {
   const listingElement = document.createElement('article');
-    listingElement.classList.add('max-w-full', 'mx-auto', 'p-4', 'w-full','sm', 'lg:w-2/3', 'swiper');
-  
+    listingElement.classList.add('md:flex-1', 'px-4', 'swiper');
+
 const swiperWrapper = document.createElement('div');
 swiperWrapper.classList.add('swiper-wrapper');
 
   const SecondListingElement = document.createElement('div');
 
-  SecondListingElement.classList.add('max-w-full','mx-auto', 'p-4', 'w-full','sm', 'lg:w-2/3');
+  SecondListingElement.classList.add('md:flex-1','px-4');
 
   const listingCreated = utils.date(listings.created);
   const tags = utils.formatTags(listings.tags);
@@ -64,7 +64,7 @@ swiperWrapper.classList.add('swiper-wrapper');
 
   const mediaSlides = listings.media?.map(mediaItem => {
     return `
-     <div class="swiper-slide h-5 dark:bg-gray-800 items-center rounded-lg">
+     <div class="swiper-slide h-5 bg-white items-center rounded-lg">
         <img class="w-full max-h-96 object-contain" 
           src="${mediaItem.url ? mediaItem.url : ''}" 
           alt="${mediaItem.alt ? mediaItem.alt : ''}" />
@@ -93,7 +93,7 @@ swiperWrapper.classList.add('swiper-wrapper');
 
   SecondListingElement.innerHTML= `
     <div class="p-4 max-w-full mx-auto break-all">
-      <div class="flex rounded-lg h-full dark:bg-gray-800 bg-teal-400 p-8 flex-col">
+      <div class="flex rounded-lg h-full bg-white p-8 flex-col">
         <div class="flex items-center mb-3">
           <div class="w-20 h-20 mr-4 inline-flex items-center justify-center rounded-full dark:bg-indigo-500 bg-indigo-500 text-white flex-shrink-0">
              <a class="" href="/profile/?seller=${listings.seller.name}">
@@ -106,34 +106,34 @@ swiperWrapper.classList.add('swiper-wrapper');
               <div>
                 <div>
                   <a href="/profile/?seller=${listings.seller.name}">
-                    <h2 class="text-white dark:text-white text-lg   font-medium hover:text-blue-600">
+                    <h2 class="dark:text-red-700 text-lg   font-medium hover:text-blue-600">
                       ${listings.seller.name}
                     </h2>
                   </a>
                 </div>
                 <div>
-                  <h2 class="text-white dark:text-white text-lg font-medium">Listed on: ${listingCreated}</h2>
+                  <h2 class="dark:text-red-700 text-lg font-medium">Listed on: ${listingCreated}</h2>
                 </div>
               </div>             
 
               <div class="flex flex-col justify-between flex-grow">
-                <h2 class="leading-relaxed text-2xl font-bold text-white dark:text-gray-300 uppercase">
+                <h2 class="leading-relaxed text-2xl font-bold text-black uppercase">
                   ${listings.title}
                 </h2>
       
-                <div class="leading-relaxed text-base text-white dark:text-gray-300">
+                <div class="leading-relaxed text-base text-black ">
                   ${tags}
                 </div>
 
                 <div>
-                  <div id="article-body" class="text-lg font-bold text-white dark:text-gray-300">Description:
+                  <div id="article-body" class="text-lg font-bold dark:text-red-700">About this item:
                   ${listings.description}
                 </div>
               </div>
               
               <div class="bidding-section mt-6 space-y-4 ">
                 <form class="bid-form " data-listing-id="LISTING_ID" id="bid" name="bid">
-                  <label for="bidAmount" class="leading-relaxed text-lg font-bold text-white dark:text-gray-300">Place Your Bid:</label>
+                  <label for="bidAmount" class="leading-relaxed text-lg font-bold dark:text-red-700">Place Your Bid:</label>
                   <input
                     type="number"
                     id="bidAmount"
