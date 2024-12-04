@@ -85,19 +85,27 @@ async function fetchProfile(user) {
 export function renderProfileData(profile) {
   const profileContainer = document.querySelector(".profile-layout");
   renderProfile(profile, profileContainer);
+
+  initializeToggleListings();
 }
 
 function renderProfile(profile, target) {
   renderOverlay(target);
-  setProfileBanner(target, profile.banner?.url);
+  setProfileBanner(target, profile?.banner?.url);
 
   const profileElement = `
-      <header id="headerWithEditProfile" class="w-full mt-2 z-10 my-8">
+      <header class="w-full mt-2 z-10 my-8">
         <div class="flex justify-center relative">
           <span>
             <img class="h-32 w-32 rounded-full block" src="${profile.avatar?.url}" alt="${profile.avatar?.alt}" width="128" height="128"/>
           </span>
-          
+        </div>
+        <div class="flex w-full gap-4 absolute right-4 -top-0 justify-end">
+          ${
+            isUser()
+              ? `<button id="editProfile" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 z-10" type="button">Edit Profile</button>`
+               : ''
+            }
         </div>
         <div class="flex justify-center flex-col">
           <div class="my-4 flex justify-center">
@@ -109,6 +117,21 @@ function renderProfile(profile, target) {
       </header>
     `;
   target.innerHTML += profileElement;
+}
+
+// Initialize toggle functionality
+function initializeToggleListings() {
+  const toggleButton = document.getElementById("toggleListings");
+  const listingsContainer = document.querySelector(".articles-list");
+
+  // Initial state: hidden
+  let isVisible = true;
+
+  toggleButton.addEventListener("click", () => {
+    isVisible = !isVisible; // Toggle state
+    listingsContainer.classList.toggle("hidden", !isVisible); // Toggle 'hidden' class
+    toggleButton.textContent = isVisible ? "Hide Listings" : "Show Listings"; // Update button text
+  });
 }
 
 function renderOverlay(target) {
@@ -129,6 +152,7 @@ function isUser() {
   const author = utils.getUrlParams("seller");
   return !author; // Return true if there is no author in URL, meaning user is authenticated
 }
+
 
 function setProfileBanner(target, background) {
   target.style.backgroundImage = `url(${background})`;
@@ -156,5 +180,23 @@ function renderListingsData(listings) {
 
   renderListings(listings, articleContainer, utils.isProfilePage());
 }
+
+function adjustContentHeight() {
+  const footer = document.querySelector("footer");
+  const header = document.querySelector("nav");
+  const main = document.querySelector("main");
+
+  const viewportHeight = window.innerHeight;
+  const headerHeight = header.offsetHeight;
+  const footerHeight = footer.offsetHeight;
+
+  // Set the main content height to fill the remaining space
+  main.style.minHeight = `${viewportHeight - headerHeight - footerHeight}px`;
+}
+
+// Adjust height on page load and resize
+window.addEventListener("load", adjustContentHeight);
+window.addEventListener("resize", adjustContentHeight);
+
 
 init();

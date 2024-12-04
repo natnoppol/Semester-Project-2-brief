@@ -1,15 +1,15 @@
 import { authGuard } from '../../../utilities/authGuard';
 authGuard();
 import controllers from '../../../controllers/index';
-import { renderProfileData } from '.';
+
 
 const form = document.forms.updateProfile;
 
 async function init() {
     const user = controllers.AuthController.authUser;
     const { data } = await controllers.ProfileController.profile(user.name);
-    
-    hideEditButton();
+    console.log(data)
+
 
     populateProfileData(data);
     attachUpdateEvent(user.name);
@@ -22,6 +22,22 @@ function populateProfileData(profile) {
   form.bannerAlt.value = profile.banner?.alt || '';
   form.avatar.value = profile.avatar?.url || '';
   form.avatarAlt.value = profile.avatar?.alt || '';
+
+  // Set the background image for profile banner
+  const profileBanner = document.getElementById('profile_banner');
+  if (profileBanner) {
+    profileBanner.style.backgroundImage = profile.banner?.url
+      ? `url('${profile.banner.url}')`
+      : "none";
+  }
+
+  // Set the background image for profile avatar
+  const profileAvatar = document.getElementById('profile_avatar');
+  if (profileAvatar) {
+    profileAvatar.style.backgroundImage = profile.avatar?.url
+      ? `url('${profile.avatar.url}')`
+      : "none";
+  }
 }
 
 function attachUpdateEvent(name) {
@@ -42,17 +58,22 @@ function attachCancelEvent() {
   }
 }
 
-function hideEditButton(){
+function adjustContentHeight() {
+  const footer = document.querySelector("footer");
+  const header = document.querySelector("nav");
+  const main = document.querySelector("main");
 
-    const editProfileButton = document.getElementById('editProfile');
-    // Set the path where the edit button should be hidden
-    const pathToHideButton = '/profile/edit/'; // replace with your target path
+  const viewportHeight = window.innerHeight;
+  const headerHeight = header.offsetHeight;
+  const footerHeight = footer.offsetHeight;
 
-    // Check if the current path matches the specified path
-    if (window.location.pathname === pathToHideButton && editProfileButton) {
-        editProfileButton.style.display = 'none';
-    }
-
+  // Set the main content height to fill the remaining space
+  main.style.minHeight = `${viewportHeight - headerHeight - footerHeight}px`;
 }
+
+// Adjust height on page load and resize
+window.addEventListener("load", adjustContentHeight);
+window.addEventListener("resize", adjustContentHeight);
+
 
 init();

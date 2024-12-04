@@ -1,9 +1,11 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
+
 import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
+  
   optimizeDeps: {
     include: ['swiper'],
   },
@@ -16,6 +18,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     rollupOptions: {
+      external: ['swiper'],
       input: {
         main: resolve(__dirname, "./index.html"),
         login: resolve(__dirname, "./auth/login/index.html"),

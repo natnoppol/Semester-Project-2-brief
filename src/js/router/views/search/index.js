@@ -136,4 +136,21 @@ function renderSearchResult(listings, target) {
   renderListings(listings, target);
 }
 
+function adjustContentHeight() {
+  const footer = document.querySelector("footer");
+  const header = document.querySelector("nav");
+  const main = document.querySelector(".listings");
+
+  const viewportHeight = window.innerHeight;
+  const headerHeight = header.offsetHeight;
+  const footerHeight = footer.offsetHeight;
+
+  // Set the main content height to fill the remaining space
+  main.style.minHeight = `${viewportHeight - headerHeight - footerHeight}px`;
+}
+
+// Adjust height on page load and resize
+window.addEventListener("load", adjustContentHeight);
+window.addEventListener("resize", adjustContentHeight);
+
 init();

@@ -4,32 +4,32 @@ import controllers from './js/controllers/index';
 
 import router from './js/router';
 
-import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+// import Swiper from 'swiper';
+// import { Navigation, Pagination } from 'swiper/modules';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
 
 
 // Register the modules
-Swiper.use([Navigation, Pagination]);
+// Swiper.use([Navigation, Pagination]);
 
-export function initializeSwiper() {
-  new Swiper('.swiper', {
-    loop: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-  });
-}
+// export function initializeSwiper() {
+//   new Swiper('.swiper', {
+//     loop: true,
+//     pagination: {
+//       el: '.swiper-pagination',
+//       clickable: true,
+//     },
+//     navigation: {
+//       nextEl: '.swiper-button-next',
+//       prevEl: '.swiper-button-prev',
+//     },
+//     scrollbar: {
+//       el: '.swiper-scrollbar',
+//     },
+//   });
+// }
 
 (async () => {
   await router(window.location.pathname);
@@ -89,6 +89,7 @@ function updateUserAvatar() {
 
   if (authUser) {
     const { avatar } = authUser;
+    console.log(avatar)
 
     // Show avatar and hide login button
     userAvatarContainer.classList.remove('hidden');

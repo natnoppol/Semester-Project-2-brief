@@ -110,13 +110,13 @@ export async function renderListings(listings, target, isProfilePage) {
               ${listing.title}
             </h2>
           </a>
-          <div class="leading-relaxed text-base text-black hover:text-blue-600">
+          <div class="leading-relaxed text-base text-black ">
             ${tags}
           </div>
         </a>
       </div>
       <div class="bids-section ">
-        <h3 class="text-xl dark:text-red-700 font-semibold">End at: ${createEndAt}</h3>
+        <h3 class="text-xl dark:text-red-700 font-semibold">End at: <span class="text-black">${createEndAt}</span></span></h3>
         <div class="dark:text-red-700 text-2xl font-bold">${bid}</div>
       </div>
       </div>
@@ -151,7 +151,7 @@ function getCurrentBid(listing) {
     return `
       <ul>
         <li>
-          <span class="">${latestBidder}: $${highestBid.amount}</span>
+          <h1 class="">${latestBidder}: <span class="text-black">$${highestBid.amount}</span></h1>
         </li>
       </ul>
     `;
