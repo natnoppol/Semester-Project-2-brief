@@ -24,10 +24,10 @@
               <span class="absolute -inset-0.5"></span>
               <span class="sr-only">Open main menu</span>
               <!--
-              Icon when menu is closed.
-  
-              Menu open: "hidden", Menu closed: "block"
-            -->
+                Icon when menu is closed.
+    
+                Menu open: "hidden", Menu closed: "block"
+              -->
               <svg
                 id="menuIcon"
                 class="block h-6 w-6"
@@ -45,10 +45,10 @@
                 />
               </svg>
               <!--
-              Icon when menu is open.
-  
-              Menu open: "block", Menu closed: "hidden"
-            -->
+                Icon when menu is open.
+    
+                Menu open: "block", Menu closed: "hidden"
+              -->
               <svg
                 id="closeIcon"
                 class="hidden h-6 w-6"
@@ -148,7 +148,7 @@
                     id="btn-login"
                     class="text-white bg-blue-600 hover:bg-blue-800 px-4 py-2 rounded"
                   >
-                    Sign In
+                    Login
                   </a>
                 </div>
 
@@ -182,7 +182,7 @@
         </div>
 
         <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="hidden" id="mobile-menu">
+        <div class="sm:hidden" id="mobile-menu">
           <div class="space-y-1 px-2 pb-3 pt-2">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
@@ -204,7 +204,7 @@
                 <form role="search" name="search">
                   <input
                     id="search-input"
-                    class="input input-search w-full"
+                    class="input input-search"
                     placeholder="Search..."
                     id="q"
                     name="q"
@@ -221,9 +221,9 @@
               </div>
               <button
                 id="btn-login-mobile"
-                class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white w-full text-left"
+                class="text-white bg-blue-600 hover:bg-blue-800 px-4 py-2 rounded"
               >
-                Sign In
+                Login
               </button>
 
               <a
@@ -248,18 +248,14 @@
       </div>
     </nav>
 
-    <main class="listings flex justify-center max-lg:">
+    <main id="listings-page" class="flex justify-center my-4 md:px-10">
       <div
-        class="flex flex-col md:flex-col lg:flex-row gap-4 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
-      >
-        <div
-          id="listings"
-          class="container bg-gray-100 shadow-md rounded-lg p-6 w-full min-h-screen"
-        ></div>
-      </div>
+        id="listing-container"
+        class="container flex flex-col md:flex-row gap-8"
+      ></div>
     </main>
 
-    <div id="loading-indicator" class="hidden flex items-center justify-center">
+    <div id="loading-indicator" class="hidden items-center justify-center">
       <div
         class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] text-blue-600"
         role="status"
