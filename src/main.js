@@ -89,7 +89,7 @@ function updateUserAvatar() {
 
   if (authUser) {
     const { avatar } = authUser;
-    console.log(avatar)
+  
 
     // Show avatar and hide login button
     userAvatarContainer.classList.remove('hidden');
