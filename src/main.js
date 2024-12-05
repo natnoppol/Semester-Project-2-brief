@@ -1,4 +1,4 @@
-import './css/style.css'
+import './css/style.css';
 
 import controllers from './js/controllers/index';
 
@@ -9,7 +9,6 @@ import router from './js/router';
 // import 'swiper/css';
 // import 'swiper/css/navigation';
 // import 'swiper/css/pagination';
-
 
 // Register the modules
 // Swiper.use([Navigation, Pagination]);
@@ -35,10 +34,9 @@ import router from './js/router';
   await router(window.location.pathname);
 })();
 
-
 const logoutListener = new controllers.LogoutController(
-    controllers.AuthController
-  );
+  controllers.AuthController
+);
 
 function init() {
   updateUserAvatar();
@@ -50,7 +48,7 @@ function init() {
 
 function setupSearchListener() {
   const searchForm = document.querySelector('form[name="search"]');
-  
+
   if (searchForm) {
     searchForm.addEventListener('submit', handleSearch);
 
@@ -77,19 +75,15 @@ function handleSearchSubmit(event) {
   }
 }
 
-
-
-
 function updateUserAvatar() {
   const userAvatar = document.querySelectorAll('.avatar-image');
   const loginButton = document.getElementById('btn-login');
   const userAvatarContainer = document.getElementById('user-avatar-container');
   const authUser = controllers.AuthController.authUser;
-  
 
   if (authUser) {
     const { avatar } = authUser;
-  
+    console.log(avatar);
 
     // Show avatar and hide login button
     userAvatarContainer.classList.remove('hidden');
@@ -112,71 +106,65 @@ function updateUserAvatar() {
 }
 
 function updateMobileMenu() {
-  const mobileMenu = document.getElementById("mobile-menu");
-  const loginButton = document.getElementById("btn-login-mobile");
-  
-
+  const mobileMenu = document.getElementById('mobile-menu');
+  const loginButton = document.getElementById('btn-login-mobile');
   const username = document.getElementById('user-name');
   const userEmail = document.getElementById('user-email');
 
-  const otherMenuItems = mobileMenu.querySelectorAll("a, form, .field");
-  const avatarImage = mobileMenu.querySelector(".avatar-image");
+  const otherMenuItems = mobileMenu.querySelectorAll('a, form, .field');
+  const avatarImage = mobileMenu.querySelector('.avatar-image');
   const authUser = controllers.AuthController.authUser;
- 
+
   if (authUser) {
     // Authenticated user: Show user details and menu, hide login button
     const { avatar, name, email } = authUser;
 
     if (avatarImage) {
-      avatarImage.src = avatar?.url || "/images/online-shopping-logo.png"; // Fallback avatar
-      avatarImage.alt = avatar?.alt || "User Avatar";
+      avatarImage.src = avatar?.url || '/images/online-shopping-logo.png'; // Fallback avatar
+      avatarImage.alt = avatar?.alt || 'User Avatar';
     }
 
-   
-    if (username) username.textContent = name || "Unknown User";
-    if (userEmail) userEmail.textContent = email || "No Email";
-  
-    loginButton.classList.add("hidden"); // Hide login button
-    otherMenuItems.forEach((item) => item.classList.remove("hidden")); // Show menu items
-    avatarImage.classList.remove("hidden");
+    if (username) username.textContent = name || 'Unknown User';
+    if (userEmail) userEmail.textContent = email || 'No Email';
 
+    loginButton.classList.add('hidden'); // Hide login button
+    otherMenuItems.forEach((item) => item.classList.remove('hidden')); // Show menu items
+    avatarImage.classList.remove('hidden');
   } else {
     // No authenticated user: Show login button only
     if (avatarImage) {
-      avatarImage.src = "/images/online-shopping-logo.png"; // Fallback to a default image
-      avatarImage.alt = "Default logo page";
+      avatarImage.src = '/images/online-shopping-logo.png'; // Fallback to a default image
+      avatarImage.alt = 'Default logo page';
     }
 
-    loginButton.classList.remove("hidden"); // Show login button
-    otherMenuItems.forEach((item) => item.classList.add("hidden")); // Hide other items
-    if (avatarImage) avatarImage.classList.add("hidden"); // Hide avatar
+    loginButton.classList.remove('hidden'); // Show login button
+    otherMenuItems.forEach((item) => item.classList.add('hidden')); // Hide other items
+    if (avatarImage) avatarImage.classList.add('hidden'); // Hide avatar
   }
 }
-
-
 
 function onAvatarClick() {
   const userMenuButton = document.getElementById('user-menu-button');
   const loginButton = document.getElementById('btn-login');
   const loginButtonMobile = document.getElementById('btn-login-mobile');
-  const userMenu = document.querySelector('[aria-labelledby="user-menu-button"]');
+  const userMenu = document.querySelector(
+    '[aria-labelledby="user-menu-button"]'
+  );
 
- 
   if (userMenuButton && userMenu) {
     userMenuButton.addEventListener('click', (event) => {
       event.stopPropagation();
       userMenu.classList.toggle('hidden');
     });
-  } 
-  if(loginButton) {
-    loginButton.addEventListener('click', () => {
-    })
   }
-  
-  if(loginButtonMobile) {
+  if (loginButton) {
+    loginButton.addEventListener('click', () => {});
+  }
+
+  if (loginButtonMobile) {
     loginButtonMobile.addEventListener('click', () => {
-      window.location.href="/auth/login/"
-    })
+      window.location.href = '/auth/login/';
+    });
   }
 
   // event click outside of the dropdown menu
