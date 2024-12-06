@@ -22,10 +22,10 @@
               <span class="absolute -inset-0.5"></span>
               <span class="sr-only">Open main menu</span>
               <!--
-              Icon when menu is closed.
-  
-              Menu open: "hidden", Menu closed: "block"
-            -->
+                Icon when menu is closed.
+    
+                Menu open: "hidden", Menu closed: "block"
+              -->
               <svg
                 id="menuIcon"
                 class="block h-6 w-6"
@@ -43,10 +43,10 @@
                 />
               </svg>
               <!--
-              Icon when menu is open.
-  
-              Menu open: "block", Menu closed: "hidden"
-            -->
+                Icon when menu is open.
+    
+                Menu open: "block", Menu closed: "hidden"
+              -->
               <svg
                 id="closeIcon"
                 class="hidden h-6 w-6"
@@ -80,8 +80,6 @@
             </div>
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
-                <!-- search -->
-
                 <a
                   href="/listing/create/"
                   class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"
@@ -182,8 +180,6 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="hidden" id="mobile-menu">
           <div class="space-y-1 px-2 pb-3 pt-2">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-
             <div class="border-gray-200 border-t">
               <div class="flex px-3 py-2 items-center gap-4">
                 <img
@@ -197,11 +193,10 @@
                 </div>
               </div>
 
-              <!-- search -->
               <div class="field">
-                <form role="search" name="search">
+                <form role="search" name="searchFormMobile">
                   <input
-                    id="search-input"
+                    id="search-input-mobile"
                     class="input input-search w-full"
                     placeholder="Search..."
                     id="q"
@@ -225,17 +220,20 @@
               </button>
 
               <a
+                id="create-listing"
                 href="/listing/create/"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
                 >Create Listing</a
               >
               <a
+                id="profile-menu"
                 href="/profile/"
                 class="block rounded-md text-white hover:bg-gray-700 px-3 py-2 text-base font-medium hover:text-white"
                 aria-current="page"
                 >Your Profile</a
               >
               <a
+                id="signout-menu"
                 href="#"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-red-700 btn-danger"
                 >Sign Out</a
