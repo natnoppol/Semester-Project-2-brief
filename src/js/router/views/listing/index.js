@@ -1,5 +1,3 @@
-import { authGuard } from '../../../utilities/authGuard';
-
 import controllers from '../../../controllers/index';
 import utils from '../../../utilities/utils';
 
@@ -17,7 +15,7 @@ async function init() {
   try {
     const id = utils.getUrlParams('id');
     const listings = await fetchListings(id);
-
+    
     renderListingsElement(listings, id, container);
     attachBidEvent(id);
   } catch (error) {
@@ -36,8 +34,8 @@ async function fetchListings(id) {
 }
 
 // actions item
-function renderListingsElement(listings, id, target) {
-  renderListings(listings, target);
+function renderListingsElement(listings, id) {
+  renderListings(listings);
   attachEditEvent(id);
   attachDeleteEvent(id);
 
@@ -164,7 +162,7 @@ function renderListingInfoElem(listings) {
             listings.description
           }</span>
         </div>
-        <form class="bid-form my-4" data-listing-id="LISTING_ID" id="bid" name="bid">
+        <form class="bid-form my-4" data-listing-id="LISTING_ID" id="bid" name="bid" novalidate>
           <label for="bidAmount" class="leading-relaxed text-lg font-bold dark:text-red-700">Place Your Bid:</label>
           <div class="relative">
             <input
@@ -201,7 +199,7 @@ function renderListingInfoElem(listings) {
   return listingInfoElem;
 }
 
-async function renderListings(listings, target) {
+async function renderListings(listings) {
   const mainContainer = document.querySelector('#listing-container');
 
   // Create the left column with Swiper
@@ -221,24 +219,37 @@ async function renderListings(listings, target) {
   const listingInfo = renderListingInfoElem(listings);
   rCol.appendChild(listingInfo);
   mainContainer.appendChild(rCol);
-
-  target.appendChild(mainContainer);
 }
 
 function isSeller(seller) {
   const authUser = controllers.AuthController.authUser;
-  if (authUser.name === seller) return true;
-  return false;
+  if (authUser) {
+    if (authUser.name === 'seller') return true;
+    return false;
+  }
 }
 
 function attachBidEvent(id) {
   const form = document.forms.bid;
-
+  const token = localStorage.getItem('token');
+  
   if (form) {
     form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      controllers.ListingsController.onBid(event, id);
+      console.log('Form submission prevented!'); // Debugging
+      event.preventDefault(); // Prevent default submission behavior
+      
+      if (token) {
+        try {
+          controllers.ListingsController.onBid(event, id);
+        } catch (error) {
+          console.error('Error handling bid:', error);
+        }
+      } else {
+        alert('Please log in to place a bid.');
+      }
     });
+  } else {
+    console.warn('Bid form not found!');
   }
 }
 
@@ -266,22 +277,5 @@ function attachDeleteEvent(id) {
     });
   }
 }
-
-// function adjustContentHeight() {
-//   const footer = document.querySelector("footer");
-//   const header = document.querySelector("nav");
-//   const main = document.querySelector(".container");
-
-//   const viewportHeight = window.innerHeight;
-//   const headerHeight = header.offsetHeight;
-//   const footerHeight = footer.offsetHeight;
-
-//   // Set the main content height to fill the remaining space
-//   main.style.minHeight = `${viewportHeight - headerHeight - footerHeight}px`;
-// }
-
-// Adjust height on page load and resize
-// window.addEventListener("load", adjustContentHeight);
-// window.addEventListener("resize", adjustContentHeight);
 
 init();

@@ -1,34 +1,6 @@
 import './css/style.css';
-
 import controllers from './js/controllers/index';
-
 import router from './js/router';
-
-// import Swiper from 'swiper';
-// import { Navigation, Pagination } from 'swiper/modules';
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-
-// Register the modules
-// Swiper.use([Navigation, Pagination]);
-
-// export function initializeSwiper() {
-//   new Swiper('.swiper', {
-//     loop: true,
-//     pagination: {
-//       el: '.swiper-pagination',
-//       clickable: true,
-//     },
-//     navigation: {
-//       nextEl: '.swiper-button-next',
-//       prevEl: '.swiper-button-prev',
-//     },
-//     scrollbar: {
-//       el: '.swiper-scrollbar',
-//     },
-//   });
-// }
 
 (async () => {
   await router(window.location.pathname);
@@ -40,20 +12,23 @@ const logoutListener = new controllers.LogoutController(
 
 function init() {
   updateUserAvatar();
-  updateMobileMenu();
   onAvatarClick();
-
+  mobileMenu();
   setupSearchListener();
 }
 
 function setupSearchListener() {
   const searchForm = document.querySelector('form[name="search"]');
+  const searchFormMobile = document.querySelector('form[name="searchMobile"]');
 
   if (searchForm) {
     searchForm.addEventListener('submit', handleSearch);
 
     const searchInput = document.getElementById('search-input');
     searchInput.addEventListener('keypress', handleSearchSubmit);
+    const searchInputMobile = document.getElementById('search-input-mobile');
+    searchInput.addEventListener('keypress', handleSearchSubmit);
+    searchInputMobile.addEventListener('keypress', handleSearchSubmit);
   }
 }
 
@@ -83,8 +58,6 @@ function updateUserAvatar() {
 
   if (authUser) {
     const { avatar } = authUser;
-    console.log(avatar);
-
     // Show avatar and hide login button
     userAvatarContainer.classList.remove('hidden');
     loginButton.classList.add('hidden');
@@ -105,41 +78,35 @@ function updateUserAvatar() {
   }
 }
 
-function updateMobileMenu() {
-  const mobileMenu = document.getElementById('mobile-menu');
-  const loginButton = document.getElementById('btn-login-mobile');
-  const username = document.getElementById('user-name');
-  const userEmail = document.getElementById('user-email');
-
-  const otherMenuItems = mobileMenu.querySelectorAll('a, form, .field');
-  const avatarImage = mobileMenu.querySelector('.avatar-image');
+function mobileMenu() {
+  const mobileMenu = document.getElementById('mobile-menu')
   const authUser = controllers.AuthController.authUser;
+  const avatarImage = mobileMenu.querySelector('.avatar-image');
 
-  if (authUser) {
-    // Authenticated user: Show user details and menu, hide login button
+  if (authUser && mobileMenu) {
     const { avatar, name, email } = authUser;
-
-    if (avatarImage) {
-      avatarImage.src = avatar?.url || '/images/online-shopping-logo.png'; // Fallback avatar
-      avatarImage.alt = avatar?.alt || 'User Avatar';
-    }
-
+    avatarImage.src = avatar?.url || '/images/online-shopping-logo.png';
+    avatarImage.alt = avatar?.alt || 'User Avatar';
+    const username = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
     if (username) username.textContent = name || 'Unknown User';
     if (userEmail) userEmail.textContent = email || 'No Email';
+    const loginBtn = document.getElementById('btn-login-mobile');
+    loginBtn.classList.add('hidden'); 
 
-    loginButton.classList.add('hidden'); // Hide login button
-    otherMenuItems.forEach((item) => item.classList.remove('hidden')); // Show menu items
-    avatarImage.classList.remove('hidden');
-  } else {
-    // No authenticated user: Show login button only
-    if (avatarImage) {
-      avatarImage.src = '/images/online-shopping-logo.png'; // Fallback to a default image
-      avatarImage.alt = 'Default logo page';
-    }
+  }
 
-    loginButton.classList.remove('hidden'); // Show login button
-    otherMenuItems.forEach((item) => item.classList.add('hidden')); // Hide other items
-    if (avatarImage) avatarImage.classList.add('hidden'); // Hide avatar
+  if (!authUser && mobileMenu) {
+    const loginBtn = document.getElementById('btn-login-mobile');
+    loginBtn.classList.remove('hidden');
+    const createListing = document.getElementById('create-listing');
+    createListing.classList.add('hidden');
+    const profileMenu = document.getElementById('profile-menu');
+    profileMenu.classList.add('hidden');
+    const signOutMenu = document.getElementById('signout-menu');
+    signOutMenu.classList.add('hidden');
+    avatarImage.src = '/images/online-shopping-logo.png'; // Fallback to a default image
+    avatarImage.alt = 'Default logo page';
   }
 }
 
