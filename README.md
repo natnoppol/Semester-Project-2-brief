@@ -5,9 +5,7 @@
 
 ## It is a program written by Javascript, HTML and CSS to receive commands and respond. Made by Natnoppol Pansantia, this project was created for learning Javascript, HTML and CSS.  💖 This website is for those who are new to using html css javascript to create a website.
 
-# API key
-To find your API key, you need to create .env file 
-``` VITE_API_KEY = "PUT YOUR API KEY HERE" ```
+
 
 ## Admin Login
 User: `natnoppol123@stud.noroff.no`
