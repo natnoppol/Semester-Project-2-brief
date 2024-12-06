@@ -10,7 +10,6 @@ class InfiniteScroll {
       this.loading = false;
       this.delay = false; // To track the delay state
   
-      // window.addEventListener('scroll', this.handleScroll.bind(this));
       window.addEventListener('scroll', this.debounce(this.handleScroll.bind(this), 300));
     }
   

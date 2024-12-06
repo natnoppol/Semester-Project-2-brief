@@ -19,15 +19,16 @@ function init() {
 
 function setupSearchListener() {
   const searchForm = document.querySelector('form[name="search"]');
-  const searchFormMobile = document.querySelector('form[name="searchMobile"]');
+  const searchFormMobile = document.querySelector('form[name="searchFormMobile"]');
 
   if (searchForm) {
     searchForm.addEventListener('submit', handleSearch);
-
+    searchFormMobile.addEventListener('submit', handleSearch)
+    
     const searchInput = document.getElementById('search-input');
     searchInput.addEventListener('keypress', handleSearchSubmit);
+
     const searchInputMobile = document.getElementById('search-input-mobile');
-    searchInput.addEventListener('keypress', handleSearchSubmit);
     searchInputMobile.addEventListener('keypress', handleSearchSubmit);
   }
 }

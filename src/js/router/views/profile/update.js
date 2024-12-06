@@ -2,18 +2,21 @@ import { authGuard } from '../../../utilities/authGuard';
 authGuard();
 import controllers from '../../../controllers/index';
 
+import utils from '../../../utilities/utils';
+
 
 const form = document.forms.updateProfile;
 
 async function init() {
-    const user = controllers.AuthController.authUser;
-    const { data } = await controllers.ProfileController.profile(user.name);
-    console.log(data)
+  utils.humberger();
+  
+  const user = controllers.AuthController.authUser;
+  const { data } = await controllers.ProfileController.profile(user.name);
 
 
-    populateProfileData(data);
-    attachUpdateEvent(user.name);
-    attachCancelEvent();
+  populateProfileData(data);
+  attachUpdateEvent(user.name);
+  attachCancelEvent();
 }
 
 function populateProfileData(profile) {

@@ -25,21 +25,44 @@ const utils = {
       ) // Add '#' before each tag
       .join(' '); // Join tags with a space
   },
-
-    humberger: () => {
-      const menuButton = document.getElementById("menuButton");
+  humberger: (() => {
+    // Define the toggle function
+    const toggleMenu = () => {
       const menuIcon = document.getElementById("menuIcon");
       const closeIcon = document.getElementById("closeIcon");
       const mobileMenu = document.getElementById("mobile-menu");
-      
-    
-      menuButton.addEventListener("click", () => {
-        console.log("click")
-        menuIcon.classList.toggle("hidden"); // Toggle 'hamburger' icon
-        closeIcon.classList.toggle("hidden"); // Toggle 'close' icon
-        mobileMenu.classList.toggle("hidden");// Toggle mobile menu visibility
-      });
-    },
+  
+      if (!menuIcon || !closeIcon || !mobileMenu) {
+        console.error("Menu elements not found. Ensure the IDs are correct.");
+        return;
+      }
+  
+      console.log("Menu button clicked");
+      menuIcon.classList.toggle("hidden"); // Toggle 'hamburger' icon
+      closeIcon.classList.toggle("hidden"); // Toggle 'close' icon
+      mobileMenu.classList.toggle("hidden"); // Toggle mobile menu visibility
+    };
+  
+    return () => {
+      const menuButton = document.getElementById("menuButton");
+  
+      if (!menuButton) {
+        console.error("Menu button not found. Ensure the ID is correct.");
+        return;
+      }
+  
+      // Ensure only one event listener is attached
+      menuButton.removeEventListener("click", toggleMenu);
+      menuButton.addEventListener("click", toggleMenu);
+  
+      // Handle HMR cleanup (for development environments like Vite)
+      if (import.meta.hot) {
+        import.meta.hot.dispose(() => {
+          menuButton.removeEventListener("click", toggleMenu);
+        });
+      }
+    };
+  })(),
     
     date: (dateString) => {
         const date = new Date(dateString);
