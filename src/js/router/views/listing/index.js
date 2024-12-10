@@ -77,6 +77,9 @@ function swiperGalllery(listings) {
       ?.map(
         (mediaItem) => `
       <div class="swiper-slide">
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev top-1/2 left-0"></div>
+      <div class="swiper-button-next top-1/2 right-0"></div>
         <img class="object-cover w-full max-h-[600px]"
           src="${mediaItem.url || ''}"
           alt="${mediaItem.alt || 'Media item'}" />
@@ -91,8 +94,8 @@ function swiperGalllery(listings) {
     </div>
     
     <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev md:!top-[350px] lg:!left-[50px]"></div>
-    <div class="swiper-button-next md:!top-[350px] md:!right-[370px] lg:!right-[825px]"></div>
+    <!--<div class="swiper-button-prev md:!top-[350px] lg:!left-[50px]"></div>-->
+    <!--<div class="swiper-button-next md:!top-[350px] md:!right-[370px] lg:!right-[825px]"></div>-->
     
   `;
   return listingElement;
