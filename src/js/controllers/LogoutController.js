@@ -1,6 +1,6 @@
 import utils from '../utilities/utils';
 import AuthController from './AuthController';
-// import LoginController from './LoginController';
+
 
 class LogoutController {
   constructor(authController) {

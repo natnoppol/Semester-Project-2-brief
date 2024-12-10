@@ -93,9 +93,6 @@ function swiperGalllery(listings) {
       ${mediaSlides}
     </div>
     
-    <!-- If we need navigation buttons -->
-    <!--<div class="swiper-button-prev md:!top-[350px] lg:!left-[50px]"></div>-->
-    <!--<div class="swiper-button-next md:!top-[350px] md:!right-[370px] lg:!right-[825px]"></div>-->
     
   `;
   return listingElement;

@@ -6,8 +6,7 @@ import RegisterController from './RegisterController';
 import ListingsController from './ListingsController';
 import TagsController from './TagsController';
 import SearchController from './SearchController';
-// import FollowController from './FollowController';
-// import CommentController from './CommentController';
+
 
 
 const controllers = {
@@ -18,9 +17,7 @@ const controllers = {
   RegisterController,
   ListingsController,
   TagsController,
-  SearchController,
-//   FollowController,
-//   CommentController
+  SearchController
 };
 
 export default controllers;

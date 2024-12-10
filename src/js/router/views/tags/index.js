@@ -31,9 +31,6 @@ const loadingIndicator = document.getElementById('loading-indicator');
             return;
           }
 
-        //   const tagLayout = renderLayout(data, container);
-        //   renderListingByTag(listings, tagLayout);
-
         // Conditionally render layout
         if (renderTagLayout) {
             const tagLayout = renderLayout(data, container);
@@ -63,9 +60,6 @@ const loadingIndicator = document.getElementById('loading-indicator');
 
     const { data, meta } = await fetchTags(tag, 1);
     const {listings}= data;
-
-    // const tagLayout = renderLayout(data, container);
-    // renderListingByTag(listings, tagLayout);
 
     // Conditionally render layout
     if (renderTagLayout) {
