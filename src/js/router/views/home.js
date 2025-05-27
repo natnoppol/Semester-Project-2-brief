@@ -1,6 +1,6 @@
 import utils from "../../utilities/utils";
 import controllers from "../../controllers/index";
-import InfiniteScroll from "../../utilities/infiniteScroll.js";
+import InfiniteScroll from "../../utilities/infiniteScroll";
 
 async function init() {
   const loadingIndicator = document.getElementById("loading-indicator");
