@@ -1,60 +1,58 @@
 import utils from "../../utilities/utils";
-
 import controllers from "../../controllers/index";
-import InfiniteScroll from '../../utilities/infiniteScroll';
+import InfiniteScroll from "../../utilities/InfiniteScroll"; 
 
 async function init() {
-  const loadingIndicator = document.getElementById('loading-indicator');
-  loadingIndicator.classList.remove('hidden');
+  const loadingIndicator = document.getElementById("loading-indicator");
+  loadingIndicator.classList.remove("hidden");
 
   utils.humberger();
-  
+
   const container = document.querySelector(".main-content");
   clearContent(container);
 
-  
-    const infiniteScroll = new InfiniteScroll({
-      container: container,
-      threshold: 200,
-      onLoad: async () => {
-        try {
-         
-          loadingIndicator.classList.remove('hidden'); // Show loading indicator
-          
-          if (infiniteScroll.nextPage <= infiniteScroll.totalPages) {
-            const { data, meta } = await fetchListings(infiniteScroll.nextPage);
-            await renderListings(data, container, utils.isProfilePage());
-  
-            // Update pagination
-            infiniteScroll.currentPage = meta.currentPage;
-            infiniteScroll.totalPages = meta.pageCount;
-            infiniteScroll.nextPage = meta.nextPage;
-          }
-        } catch (error) {
-          console.error('Error loading more listings:', error);
-          container.innerHTML +=
-            '<p>Error loading more listings. Please try again later.</p>';
-        }finally {
-          loadingIndicator.classList.add('hidden'); // Hide loading indicator
-        }
-      },
-    });
+  const infiniteScroll = new InfiniteScroll({
+    container: container,
+    threshold: 200,
+    onLoad: async () => {
+      try {
+        loadingIndicator.classList.remove("hidden"); // Show loading indicator
 
-    try {
-      const { data, meta } = await fetchListings(1);
-      renderListings(data, container, utils.isProfilePage());
-  
-      // Set initial pagination details
-      infiniteScroll.currentPage = meta.currentPage;
-      infiniteScroll.totalPages = meta.pageCount;
-      infiniteScroll.nextPage = meta.nextPage;
-    } catch (error) {
-      console.error('Error loading initial listings:', error);
-      container.innerHTML = '<p>Error loading listings. Please try again later.</p>';
-    } finally {
-      loadingIndicator.classList.add('hidden');
-    }
+        if (infiniteScroll.nextPage <= infiniteScroll.totalPages) {
+          const { data, meta } = await fetchListings(infiniteScroll.nextPage);
+          await renderListings(data, container, utils.isProfilePage());
+
+          // Update pagination
+          infiniteScroll.currentPage = meta.currentPage;
+          infiniteScroll.totalPages = meta.pageCount;
+          infiniteScroll.nextPage = meta.nextPage;
+        }
+      } catch (error) {
+        console.error("Error loading more listings:", error);
+        container.innerHTML +=
+          "<p>Error loading more listings. Please try again later.</p>";
+      } finally {
+        loadingIndicator.classList.add("hidden"); // Hide loading indicator
+      }
+    },
+  });
+
+  try {
+    const { data, meta } = await fetchListings(1);
+    renderListings(data, container, utils.isProfilePage());
+
+    // Set initial pagination details
+    infiniteScroll.currentPage = meta.currentPage;
+    infiniteScroll.totalPages = meta.pageCount;
+    infiniteScroll.nextPage = meta.nextPage;
+  } catch (error) {
+    console.error("Error loading initial listings:", error);
+    container.innerHTML =
+      "<p>Error loading listings. Please try again later.</p>";
+  } finally {
+    loadingIndicator.classList.add("hidden");
   }
+}
 
 function clearContent(target) {
   if (target) target.innerHTML = "";
@@ -74,32 +72,35 @@ export async function renderListings(listings, target, isProfilePage) {
 
       const listingElement = document.createElement("div");
       listingElement.setAttribute(
-        'class',
-        'flex justify-center rounded mx-auto mb-2 w-full max-w-[616px] w-full duration-500 hover:scale-105 hover:shadow-xl'
+        "class",
+        "flex justify-center rounded mx-auto mb-2 w-full max-w-[616px] w-full duration-500 hover:scale-105 hover:shadow-xl"
       );
 
-    
       const mediaHeader = getMediaHeader(listing, isProfilePage);
       const bid = getCurrentBid(listing);
       const sellerDetails = isSellerActive(listing.seller)
-  ? `
+        ? `
      <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full  flex-shrink-0">
        <a class="" href="/profile/?seller=${listing.seller.name}">
-         <img class="" src="${listing.seller.avatar?.url || ''}" alt="${listing.seller.avatar?.alt || ''}" width="32" height="32" />
+         <img class="" src="${listing.seller.avatar?.url || ""}" alt="${
+            listing.seller.avatar?.alt || ""
+          }" width="32" height="32" />
        </a>
      </div>
      <div>
        <div>
          <a href="/profile/?seller=${encodeURIComponent(listing.seller.name)}">
-           <h2 class=" dark:text-red-700 text-lg font-bold hover:text-blue-600">${listing.seller.name}</h2>
+           <h2 class=" dark:text-red-700 text-lg font-bold hover:text-blue-600">${
+             listing.seller.name
+           }</h2>
          </a>
        </div>
        <div>
          <h2 class=" dark:text-red-700 text-lg font-bold">${createdDate}</h2>
        </div>
      </div>`
-  : '';
-  listingElement.innerHTML = `
+        : "";
+      listingElement.innerHTML = `
     <div class="p-4 max-w-xl w-full">
       <div class="flex rounded-lg h-full p-8 flex-col shadow-2xl">
         <div>${mediaHeader}</div>
@@ -164,12 +165,16 @@ function getCurrentBid(listing) {
     </ul>`; // If no bids
 }
 
-function getMediaHeader(listing, isProfilePage){
+function getMediaHeader(listing, isProfilePage) {
   // If the page is not a profile page, handle media
   if (!isProfilePage) {
     const hasMedia = Array.isArray(listing.media) && listing.media.length > 0;
-    const mediaUrl = hasMedia ? listing.media[0].url : '/images/istockphoto-1396814518-612x612.jpg';
-    const altText = hasMedia ? listing.media[0].alt || 'Listing image' : 'Placeholder image';
+    const mediaUrl = hasMedia
+      ? listing.media[0].url
+      : "/images/istockphoto-1396814518-612x612.jpg";
+    const altText = hasMedia
+      ? listing.media[0].alt || "Listing image"
+      : "Placeholder image";
 
     return `
       <div class="flex items-center mb-3">
@@ -188,7 +193,7 @@ function getMediaHeader(listing, isProfilePage){
   }
 
   // If it is a profile page, return an empty string
-  return '';
+  return "";
 }
 
 function isSellerActive(seller) {
@@ -196,5 +201,3 @@ function isSellerActive(seller) {
 }
 
 init();
-
-
